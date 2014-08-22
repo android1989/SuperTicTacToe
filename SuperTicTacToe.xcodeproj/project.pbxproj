@@ -12,6 +12,9 @@
 		AF04AADC19A6AC4F000D97FF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AF04AADA19A6AC4F000D97FF /* Main.storyboard */; };
 		AF04AADE19A6AC4F000D97FF /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AF04AADD19A6AC4F000D97FF /* Images.xcassets */; };
 		AF04AAEA19A6AC4F000D97FF /* SuperTicTacToeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF04AAE919A6AC4F000D97FF /* SuperTicTacToeTests.swift */; };
+		AF04AAF519A6AE58000D97FF /* GameBoardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF04AAF319A6AE58000D97FF /* GameBoardViewController.swift */; };
+		AF04AAF819A6AF17000D97FF /* GameBoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF04AAF719A6AF17000D97FF /* GameBoardView.swift */; };
+		AF04AAFA19A6B262000D97FF /* GameBoardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF04AAF919A6B262000D97FF /* GameBoardCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -34,6 +37,9 @@
 		AF04AAE319A6AC4F000D97FF /* SuperTicTacToeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SuperTicTacToeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		AF04AAE819A6AC4F000D97FF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AF04AAE919A6AC4F000D97FF /* SuperTicTacToeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuperTicTacToeTests.swift; sourceTree = "<group>"; };
+		AF04AAF319A6AE58000D97FF /* GameBoardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameBoardViewController.swift; sourceTree = "<group>"; };
+		AF04AAF719A6AF17000D97FF /* GameBoardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameBoardView.swift; sourceTree = "<group>"; };
+		AF04AAF919A6B262000D97FF /* GameBoardCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameBoardCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,6 +86,9 @@
 				AF04AADA19A6AC4F000D97FF /* Main.storyboard */,
 				AF04AADD19A6AC4F000D97FF /* Images.xcassets */,
 				AF04AAD419A6AC4F000D97FF /* Supporting Files */,
+				AF04AAF319A6AE58000D97FF /* GameBoardViewController.swift */,
+				AF04AAF719A6AF17000D97FF /* GameBoardView.swift */,
+				AF04AAF919A6B262000D97FF /* GameBoardCell.swift */,
 			);
 			path = SuperTicTacToe;
 			sourceTree = "<group>";
@@ -210,6 +219,9 @@
 			files = (
 				AF04AAD919A6AC4F000D97FF /* ViewController.swift in Sources */,
 				AF04AAD719A6AC4F000D97FF /* AppDelegate.swift in Sources */,
+				AF04AAF519A6AE58000D97FF /* GameBoardViewController.swift in Sources */,
+				AF04AAF819A6AF17000D97FF /* GameBoardView.swift in Sources */,
+				AF04AAFA19A6B262000D97FF /* GameBoardCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
