@@ -51,6 +51,11 @@ class GameBoardViewController: UIViewController, GameBoardDataSource, GameBoardD
     func gameBoardView(gameBoardView: GameBoardView!, didSelectItemAtIndexPath indexPath: Int!) {
         
         if gameBoardZoomed {
+            UIView.animateWithDuration(1, animations: {  [unowned self] () -> Void in
+                self.gameBoard.transform = CGAffineTransformIdentity
+            }, completion: {  [unowned self] (finished) -> Void in
+                self.gameBoardZoomed = false;
+            })
             return
         }
         
