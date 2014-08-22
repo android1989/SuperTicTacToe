@@ -8,19 +8,15 @@
 
 import UIKit
 
-struct GameBoardIndexPath {
-    let x = 0
-    let y = 0
-}
 
 protocol GameBoardDelegate : NSObjectProtocol {
-    func gameBoardView(gameBoardView: GameBoardView!, didHighlightItemAtIndexPath indexPath: GameBoardIndexPath!);
-    func gameBoardView(gameBoardView: GameBoardView!, didEndHighlightItemAtIndexPath indexPath: GameBoardIndexPath!);
-    func gameBoardView(gameBoardView: GameBoardView!, didSelectItemAtIndexPath indexPath: GameBoardIndexPath!);
+    func gameBoardView(gameBoardView: GameBoardView!, didHighlightItemAtIndexPath indexPath: NSInteger!);
+    func gameBoardView(gameBoardView: GameBoardView!, didEndHighlightItemAtIndexPath indexPath: NSInteger!);
+    func gameBoardView(gameBoardView: GameBoardView!, didSelectItemAtIndexPath indexPath: NSInteger!);
 }
 
 protocol GameBoardDataSource : NSObjectProtocol {
-    func gameBoardView(gameBoardView: GameBoardView!, cellForItemAtIndexPath indexPath: GameBoardIndexPath!) -> GameBoardCell!
+    func gameBoardView(gameBoardView: GameBoardView!, cellForItemAtIndexPath indexPath: NSInteger!) -> GameBoardCell!
 }
 
 class GameBoardView: UIView {
