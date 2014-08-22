@@ -8,15 +8,14 @@
 
 import UIKit
 
-
 protocol GameBoardDelegate : NSObjectProtocol {
-    func gameBoardView(gameBoardView: GameBoardView!, didHighlightItemAtIndexPath indexPath: NSInteger!);
-    func gameBoardView(gameBoardView: GameBoardView!, didEndHighlightItemAtIndexPath indexPath: NSInteger!);
-    func gameBoardView(gameBoardView: GameBoardView!, didSelectItemAtIndexPath indexPath: NSInteger!);
+    func gameBoardView(gameBoardView: GameBoardView!, didHighlightItemAtIndexPath indexPath: Int!);
+    func gameBoardView(gameBoardView: GameBoardView!, didEndHighlightItemAtIndexPath indexPath: Int!);
+    func gameBoardView(gameBoardView: GameBoardView!, didSelectItemAtIndexPath indexPath: Int!);
 }
 
 protocol GameBoardDataSource : NSObjectProtocol {
-    func gameBoardView(gameBoardView: GameBoardView!, cellForItemAtIndexPath indexPath: NSInteger!) -> GameBoardCell!
+    func gameBoardView(gameBoardView: GameBoardView!, cellForItemAtIndex index: Int!) -> GameBoardCell!
 }
 
 class GameBoardView: UIView {
@@ -31,6 +30,9 @@ class GameBoardView: UIView {
     var lineX2: CALayer!
     var lineY1: CALayer!
     var lineY2: CALayer!
+    
+    var cells = Array<GameBoardCell>()
+    var highlightedCells = Array<GameBoardCell>()
     
     
     override init(frame: CGRect) {
@@ -51,6 +53,26 @@ class GameBoardView: UIView {
     
     func twoThird(value: CGFloat) -> CGFloat {
         return 2*value/3
+    }
+    
+    func buildBoard() {
+        cells.removeAll(keepCapacity: true)
+        
+        var index: Int = 0
+        for index; index < 9; ++index
+        {
+            let gameBoardCell = dataSource?.gameBoardView(self, cellForItemAtIndex:index)
+            let xCoord = CGFloat(index%3)*oneThird(CGRectGetWidth(bounds));
+            let yCoord = CGFloat(index/3)*oneThird(CGRectGetHeight(bounds));
+            
+            var frame = gameBoardCell?.frame
+            frame?.origin = CGPointMake(xCoord+lineWidth/2, yCoord+lineWidth/2)
+            frame?.size = CGSizeMake(oneThird(CGRectGetWidth(bounds))-lineWidth, oneThird(CGRectGetHeight(bounds))-lineWidth)
+            gameBoardCell?.frame = frame!
+            
+            cells.append(gameBoardCell!)
+            addSubview(gameBoardCell!)
+        }
     }
     
     func buildLines() {
@@ -84,15 +106,78 @@ class GameBoardView: UIView {
         return maskLayer
     }
     
+    override func layoutSubviews() {
+        
+        super.layoutSubviews()
+        //resize layers
+        lineX1.frame = bounds
+        lineX2.frame = bounds
+        lineY1.frame = bounds
+        lineY2.frame = bounds
+    }
+    
+    // MARK: Touchs
     override func touchesBegan(touches: NSSet!, withEvent event: UIEvent!) {
-        delegate?.gameBoardView(self, didHighlightItemAtIndexPath: nil)
+        
+        for (var index = 0; index < touches.count; ++index) {
+            
+            let touch: UITouch = touches.allObjects[index] as UITouch
+            
+            let currentLocation = touch.locationInView(self)
+            var cellIndex = 0
+            for cell in cells {
+                if (cell.frame .contains(currentLocation)) {
+                    self.delegate?.gameBoardView(self, didEndHighlightItemAtIndexPath: cellIndex)
+                }else{
+                    if let highlightedIndex = find(highlightedCells, cell) {
+                        self.delegate?.gameBoardView(self, didEndHighlightItemAtIndexPath: cellIndex)
+                        highlightedCells.removeAtIndex(highlightedIndex)
+                    }
+                }
+                ++cellIndex
+            }
+        }
     }
     
     override func touchesMoved(touches: NSSet!, withEvent event: UIEvent!) {
-        delegate?.gameBoardView(self, didSelectItemAtIndexPath: nil)
+        for (var index = 0; index < touches.count; ++index) {
+            
+            let touch: UITouch = touches.allObjects[index] as UITouch
+            
+            let currentLocation = touch.locationInView(self)
+            var cellIndex = 0
+            for cell in cells {
+                if (cell.frame .contains(currentLocation)) {
+                    self.delegate?.gameBoardView(self, didEndHighlightItemAtIndexPath: cellIndex)
+                }else{
+                    if let highlightedIndex = find(highlightedCells, cell) {
+                        self.delegate?.gameBoardView(self, didEndHighlightItemAtIndexPath: cellIndex)
+                        highlightedCells.removeAtIndex(highlightedIndex)
+                    }
+                }
+                ++cellIndex
+            }
+        }
     }
     
     override func touchesEnded(touches: NSSet!, withEvent event: UIEvent!) {
-        delegate?.gameBoardView(self, didSelectItemAtIndexPath: nil)
+        for (var index = 0; index < touches.count; ++index) {
+            
+            let touch: UITouch = touches.allObjects[index] as UITouch
+            
+            let currentLocation = touch.locationInView(self)
+            var cellIndex = 0
+            for cell in cells {
+                if (cell.frame .contains(currentLocation)) {
+                    self.delegate?.gameBoardView(self, didSelectItemAtIndexPath: cellIndex)
+                }else{
+                    if let highlightedIndex = find(highlightedCells, cell) {
+                        self.delegate?.gameBoardView(self, didEndHighlightItemAtIndexPath: cellIndex)
+                        highlightedCells.removeAtIndex(highlightedIndex)
+                    }
+                }
+                ++cellIndex
+            }
+        }
     }
 }
