@@ -16,9 +16,18 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <gestureRecognizers/>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="Kyc-BY-6lC" appends="YES" id="1Ru-2Q-DFQ"/>
+                        </connections>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
+                <pinchGestureRecognizer id="Kyc-BY-6lC">
+                    <connections>
+                        <action selector="pinchGestureRecognized:" destination="vXZ-lx-hvc" id="INI-rI-8Nb"/>
+                    </connections>
+                </pinchGestureRecognizer>
             </objects>
         </scene>
     </scenes>

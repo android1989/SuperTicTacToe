@@ -11,6 +11,7 @@ import UIKit
 class GameBoardViewController: UIViewController, GameBoardDataSource, GameBoardDelegate {
 
     var gameBoard: GameBoardView!
+    var gameBoardZoomed = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,8 +50,40 @@ class GameBoardViewController: UIViewController, GameBoardDataSource, GameBoardD
         
     }
     func gameBoardView(gameBoardView: GameBoardView!, didSelectItemAtIndexPath indexPath: Int!) {
+        var cell = gameBoardView.cellForIndex(indexPath)
+        
+        var xAnchor = CGFloat(indexPath%3)/2.0
+        var yAnchor = CGFloat(indexPath/3)/2.0
+        
+        var scale = (CGRectGetWidth(self.gameBoard.frame)/CGRectGetWidth(cell.frame))*0.9
+        var frame = self.gameBoard.frame;
+        self.gameBoard.layer.anchorPoint = CGPointMake(xAnchor, yAnchor)
+        self.gameBoard.frame = frame
         UIView.animateWithDuration(1, animations: { [unowned self] () -> Void in
-            self.gameBoard.transform = CGAffineTransformMakeScale(2, 2)
+            self.gameBoard.transform = CGAffineTransformMakeScale(scale, scale)
         })
+        
+        gameBoardZoomed = true
+    }
+    
+    // MARK: - Pinch Gesture
+    
+    @IBAction func pinchGestureRecognized(pinchGestureRecognizer: UIPinchGestureRecognizer) {
+        if gameBoardZoomed {
+            
+            switch pinchGestureRecognizer.state {
+            case UIGestureRecognizerState.Began, UIGestureRecognizerState.Changed:
+                let scale = pinchGestureRecognizer.scale;
+                self.gameBoard.transform = CGAffineTransformScale(self.gameBoard.transform, scale, scale);
+                pinchGestureRecognizer.scale = 1.0;
+            case UIGestureRecognizerState.Ended:
+                UIView.animateWithDuration(1, animations: { [unowned self] () -> Void in
+                    self.gameBoard.transform = CGAffineTransformIdentity
+                })
+                gameBoardZoomed = false
+            default:
+                print(self)
+            }
+        }
     }
 }

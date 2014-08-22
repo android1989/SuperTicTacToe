@@ -47,11 +47,15 @@ class GameBoardView: UIView {
         super.init(coder: aDecoder)
     }
     
-    func oneThird(value: CGFloat) -> CGFloat {
+    func cellForIndex(index :Int) -> GameBoardCell {
+        return cells[index]
+    }
+    
+    private func oneThird(value: CGFloat) -> CGFloat {
         return value/3
     }
     
-    func twoThird(value: CGFloat) -> CGFloat {
+    private func twoThird(value: CGFloat) -> CGFloat {
         return 2*value/3
     }
     
@@ -75,7 +79,7 @@ class GameBoardView: UIView {
         }
     }
     
-    func buildLines() {
+    private func buildLines() {
         
         lineX1 = buildLine(CGPointMake(oneThird(CGRectGetWidth(bounds)), lineWidth) , toPoint: CGPointMake(oneThird(CGRectGetWidth(bounds)), CGRectGetHeight(bounds)-lineWidth))
         lineX2 = buildLine(CGPointMake(twoThird(CGRectGetWidth(bounds)), lineWidth) , toPoint: CGPointMake(twoThird(CGRectGetWidth(bounds)), CGRectGetHeight(bounds)-lineWidth))
@@ -88,7 +92,7 @@ class GameBoardView: UIView {
         layer.addSublayer(lineY2)
     }
     
-    func buildLine(fromPoint: CGPoint, toPoint: CGPoint) -> CALayer {
+    private func buildLine(fromPoint: CGPoint, toPoint: CGPoint) -> CALayer {
         var lineLayer = CALayer()
         var maskLayer = CAShapeLayer()
         
