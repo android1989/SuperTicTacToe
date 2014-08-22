@@ -15,6 +15,7 @@
 		AF04AAF519A6AE58000D97FF /* GameBoardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF04AAF319A6AE58000D97FF /* GameBoardViewController.swift */; };
 		AF04AAF819A6AF17000D97FF /* GameBoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF04AAF719A6AF17000D97FF /* GameBoardView.swift */; };
 		AF04AAFA19A6B262000D97FF /* GameBoardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF04AAF919A6B262000D97FF /* GameBoardCell.swift */; };
+		AF04AAFC19A6FC62000D97FF /* GameBoardGameCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF04AAFB19A6FC62000D97FF /* GameBoardGameCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,6 +41,7 @@
 		AF04AAF319A6AE58000D97FF /* GameBoardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameBoardViewController.swift; sourceTree = "<group>"; };
 		AF04AAF719A6AF17000D97FF /* GameBoardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameBoardView.swift; sourceTree = "<group>"; };
 		AF04AAF919A6B262000D97FF /* GameBoardCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameBoardCell.swift; sourceTree = "<group>"; };
+		AF04AAFB19A6FC62000D97FF /* GameBoardGameCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameBoardGameCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -89,6 +91,7 @@
 				AF04AAF319A6AE58000D97FF /* GameBoardViewController.swift */,
 				AF04AAF719A6AF17000D97FF /* GameBoardView.swift */,
 				AF04AAF919A6B262000D97FF /* GameBoardCell.swift */,
+				AF04AAFB19A6FC62000D97FF /* GameBoardGameCell.swift */,
 			);
 			path = SuperTicTacToe;
 			sourceTree = "<group>";
@@ -219,6 +222,7 @@
 			files = (
 				AF04AAD919A6AC4F000D97FF /* ViewController.swift in Sources */,
 				AF04AAD719A6AC4F000D97FF /* AppDelegate.swift in Sources */,
+				AF04AAFC19A6FC62000D97FF /* GameBoardGameCell.swift in Sources */,
 				AF04AAF519A6AE58000D97FF /* GameBoardViewController.swift in Sources */,
 				AF04AAF819A6AF17000D97FF /* GameBoardView.swift in Sources */,
 				AF04AAFA19A6B262000D97FF /* GameBoardCell.swift in Sources */,

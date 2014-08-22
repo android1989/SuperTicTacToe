@@ -22,7 +22,7 @@ class GameBoardView: UIView {
     weak var delegate: GameBoardDelegate?
     weak var dataSource: GameBoardDataSource?
     
-    let lineWidth: CGFloat = 10
+    var lineWidth: CGFloat = 10
     
     var lineColor: UIColor!
     

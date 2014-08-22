@@ -36,8 +36,7 @@ class GameBoardViewController: UIViewController, GameBoardDataSource, GameBoardD
     // MARK: - GameBoardDataSource
     
     func gameBoardView(gameBoardView: GameBoardView!, cellForItemAtIndex index: Int!) -> GameBoardCell! {
-        var view = GameBoardCell(frame: CGRectMake(0, 0, 320, 320))
-        view.backgroundColor = UIColor.blueColor()
+        var view = GameBoardGameCell(frame: CGRectMake(0, 0, 160, 160))
         
         return view
     }
@@ -50,6 +49,11 @@ class GameBoardViewController: UIViewController, GameBoardDataSource, GameBoardD
         
     }
     func gameBoardView(gameBoardView: GameBoardView!, didSelectItemAtIndexPath indexPath: Int!) {
+        
+        if gameBoardZoomed {
+            return
+        }
+        
         var cell = gameBoardView.cellForIndex(indexPath)
         
         var xAnchor = CGFloat(indexPath%3)/2.0
@@ -73,8 +77,8 @@ class GameBoardViewController: UIViewController, GameBoardDataSource, GameBoardD
             
             switch pinchGestureRecognizer.state {
             case UIGestureRecognizerState.Began, UIGestureRecognizerState.Changed:
-                let scale = pinchGestureRecognizer.scale;
-                self.gameBoard.transform = CGAffineTransformScale(self.gameBoard.transform, scale, scale);
+                let scale = min(2, max(pinchGestureRecognizer.scale, 1))
+                var transform = CGAffineTransformScale(self.gameBoard.transform, scale, scale);
                 pinchGestureRecognizer.scale = 1.0;
             case UIGestureRecognizerState.Ended:
                 UIView.animateWithDuration(1, animations: { [unowned self] () -> Void in
