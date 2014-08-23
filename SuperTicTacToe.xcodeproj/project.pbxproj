@@ -8,14 +8,19 @@
 
 /* Begin PBXBuildFile section */
 		AF04AAD719A6AC4F000D97FF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF04AAD619A6AC4F000D97FF /* AppDelegate.swift */; };
-		AF04AAD919A6AC4F000D97FF /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF04AAD819A6AC4F000D97FF /* ViewController.swift */; };
 		AF04AADC19A6AC4F000D97FF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AF04AADA19A6AC4F000D97FF /* Main.storyboard */; };
 		AF04AADE19A6AC4F000D97FF /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AF04AADD19A6AC4F000D97FF /* Images.xcassets */; };
 		AF04AAEA19A6AC4F000D97FF /* SuperTicTacToeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF04AAE919A6AC4F000D97FF /* SuperTicTacToeTests.swift */; };
-		AF04AAF519A6AE58000D97FF /* GameBoardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF04AAF319A6AE58000D97FF /* GameBoardViewController.swift */; };
-		AF04AAF819A6AF17000D97FF /* GameBoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF04AAF719A6AF17000D97FF /* GameBoardView.swift */; };
-		AF04AAFA19A6B262000D97FF /* GameBoardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF04AAF919A6B262000D97FF /* GameBoardCell.swift */; };
-		AF04AAFC19A6FC62000D97FF /* GameBoardGameCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF04AAFB19A6FC62000D97FF /* GameBoardGameCell.swift */; };
+		AFB9E55F19A90597009242A7 /* GameBoardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFB9E55619A90597009242A7 /* GameBoardViewController.swift */; };
+		AFB9E56019A90597009242A7 /* GameBoardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFB9E55A19A90597009242A7 /* GameBoardCell.swift */; };
+		AFB9E56119A90597009242A7 /* GameBoardGameCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFB9E55B19A90597009242A7 /* GameBoardGameCell.swift */; };
+		AFB9E56219A90597009242A7 /* GameBoardMinimalRepresentationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFB9E55C19A90597009242A7 /* GameBoardMinimalRepresentationView.swift */; };
+		AFB9E56319A90597009242A7 /* GameBoardMoveCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFB9E55D19A90597009242A7 /* GameBoardMoveCell.swift */; };
+		AFB9E56419A90597009242A7 /* GameBoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFB9E55E19A90597009242A7 /* GameBoardView.swift */; };
+		AFB9E56719A905BF009242A7 /* Calculations.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFB9E56619A905BF009242A7 /* Calculations.swift */; };
+		AFB9E56919A905E0009242A7 /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AFB9E56819A905E0009242A7 /* GameKit.framework */; };
+		AFB9E56C19A906A7009242A7 /* GameCenterMatchManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFB9E56B19A906A7009242A7 /* GameCenterMatchManager.swift */; };
+		AFB9E56E19A91517009242A7 /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFB9E56D19A91517009242A7 /* RootViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -32,16 +37,21 @@
 		AF04AAD119A6AC4F000D97FF /* SuperTicTacToe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SuperTicTacToe.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AF04AAD519A6AC4F000D97FF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AF04AAD619A6AC4F000D97FF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		AF04AAD819A6AC4F000D97FF /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		AF04AADB19A6AC4F000D97FF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		AF04AADD19A6AC4F000D97FF /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		AF04AAE319A6AC4F000D97FF /* SuperTicTacToeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SuperTicTacToeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		AF04AAE819A6AC4F000D97FF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AF04AAE919A6AC4F000D97FF /* SuperTicTacToeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuperTicTacToeTests.swift; sourceTree = "<group>"; };
-		AF04AAF319A6AE58000D97FF /* GameBoardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameBoardViewController.swift; sourceTree = "<group>"; };
-		AF04AAF719A6AF17000D97FF /* GameBoardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameBoardView.swift; sourceTree = "<group>"; };
-		AF04AAF919A6B262000D97FF /* GameBoardCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameBoardCell.swift; sourceTree = "<group>"; };
-		AF04AAFB19A6FC62000D97FF /* GameBoardGameCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameBoardGameCell.swift; sourceTree = "<group>"; };
+		AFB9E55619A90597009242A7 /* GameBoardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameBoardViewController.swift; sourceTree = "<group>"; };
+		AFB9E55A19A90597009242A7 /* GameBoardCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameBoardCell.swift; sourceTree = "<group>"; };
+		AFB9E55B19A90597009242A7 /* GameBoardGameCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameBoardGameCell.swift; sourceTree = "<group>"; };
+		AFB9E55C19A90597009242A7 /* GameBoardMinimalRepresentationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameBoardMinimalRepresentationView.swift; sourceTree = "<group>"; };
+		AFB9E55D19A90597009242A7 /* GameBoardMoveCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameBoardMoveCell.swift; sourceTree = "<group>"; };
+		AFB9E55E19A90597009242A7 /* GameBoardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameBoardView.swift; sourceTree = "<group>"; };
+		AFB9E56619A905BF009242A7 /* Calculations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Calculations.swift; sourceTree = "<group>"; };
+		AFB9E56819A905E0009242A7 /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
+		AFB9E56B19A906A7009242A7 /* GameCenterMatchManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameCenterMatchManager.swift; sourceTree = "<group>"; };
+		AFB9E56D19A91517009242A7 /* RootViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -49,6 +59,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AFB9E56919A905E0009242A7 /* GameKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -65,6 +76,7 @@
 		AF04AAC819A6AC4F000D97FF = {
 			isa = PBXGroup;
 			children = (
+				AFB9E56819A905E0009242A7 /* GameKit.framework */,
 				AF04AAD319A6AC4F000D97FF /* SuperTicTacToe */,
 				AF04AAE619A6AC4F000D97FF /* SuperTicTacToeTests */,
 				AF04AAD219A6AC4F000D97FF /* Products */,
@@ -83,15 +95,16 @@
 		AF04AAD319A6AC4F000D97FF /* SuperTicTacToe */ = {
 			isa = PBXGroup;
 			children = (
+				AFB9E56A19A90687009242A7 /* GameKitHelpers */,
+				AFB9E56519A905A5009242A7 /* Utitlites */,
+				AFB9E55519A90597009242A7 /* Controllers */,
+				AFB9E55719A90597009242A7 /* Models */,
+				AFB9E55819A90597009242A7 /* ViewModels */,
+				AFB9E55919A90597009242A7 /* Views */,
 				AF04AAD619A6AC4F000D97FF /* AppDelegate.swift */,
-				AF04AAD819A6AC4F000D97FF /* ViewController.swift */,
 				AF04AADA19A6AC4F000D97FF /* Main.storyboard */,
 				AF04AADD19A6AC4F000D97FF /* Images.xcassets */,
 				AF04AAD419A6AC4F000D97FF /* Supporting Files */,
-				AF04AAF319A6AE58000D97FF /* GameBoardViewController.swift */,
-				AF04AAF719A6AF17000D97FF /* GameBoardView.swift */,
-				AF04AAF919A6B262000D97FF /* GameBoardCell.swift */,
-				AF04AAFB19A6FC62000D97FF /* GameBoardGameCell.swift */,
 			);
 			path = SuperTicTacToe;
 			sourceTree = "<group>";
@@ -119,6 +132,57 @@
 				AF04AAE819A6AC4F000D97FF /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		AFB9E55519A90597009242A7 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				AFB9E55619A90597009242A7 /* GameBoardViewController.swift */,
+				AFB9E56D19A91517009242A7 /* RootViewController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		AFB9E55719A90597009242A7 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		AFB9E55819A90597009242A7 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		AFB9E55919A90597009242A7 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				AFB9E55A19A90597009242A7 /* GameBoardCell.swift */,
+				AFB9E55B19A90597009242A7 /* GameBoardGameCell.swift */,
+				AFB9E55C19A90597009242A7 /* GameBoardMinimalRepresentationView.swift */,
+				AFB9E55D19A90597009242A7 /* GameBoardMoveCell.swift */,
+				AFB9E55E19A90597009242A7 /* GameBoardView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		AFB9E56519A905A5009242A7 /* Utitlites */ = {
+			isa = PBXGroup;
+			children = (
+				AFB9E56619A905BF009242A7 /* Calculations.swift */,
+			);
+			path = Utitlites;
+			sourceTree = "<group>";
+		};
+		AFB9E56A19A90687009242A7 /* GameKitHelpers */ = {
+			isa = PBXGroup;
+			children = (
+				AFB9E56B19A906A7009242A7 /* GameCenterMatchManager.swift */,
+			);
+			path = GameKitHelpers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -170,6 +234,12 @@
 				TargetAttributes = {
 					AF04AAD019A6AC4F000D97FF = {
 						CreatedOnToolsVersion = 6.0;
+						DevelopmentTeam = H6477GN277;
+						SystemCapabilities = {
+							com.apple.GameCenter = {
+								enabled = 1;
+							};
+						};
 					};
 					AF04AAE219A6AC4F000D97FF = {
 						CreatedOnToolsVersion = 6.0;
@@ -220,12 +290,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AF04AAD919A6AC4F000D97FF /* ViewController.swift in Sources */,
+				AFB9E56E19A91517009242A7 /* RootViewController.swift in Sources */,
+				AFB9E56C19A906A7009242A7 /* GameCenterMatchManager.swift in Sources */,
 				AF04AAD719A6AC4F000D97FF /* AppDelegate.swift in Sources */,
-				AF04AAFC19A6FC62000D97FF /* GameBoardGameCell.swift in Sources */,
-				AF04AAF519A6AE58000D97FF /* GameBoardViewController.swift in Sources */,
-				AF04AAF819A6AF17000D97FF /* GameBoardView.swift in Sources */,
-				AF04AAFA19A6B262000D97FF /* GameBoardCell.swift in Sources */,
+				AFB9E56119A90597009242A7 /* GameBoardGameCell.swift in Sources */,
+				AFB9E56319A90597009242A7 /* GameBoardMoveCell.swift in Sources */,
+				AFB9E56719A905BF009242A7 /* Calculations.swift in Sources */,
+				AFB9E56019A90597009242A7 /* GameBoardCell.swift in Sources */,
+				AFB9E55F19A90597009242A7 /* GameBoardViewController.swift in Sources */,
+				AFB9E56219A90597009242A7 /* GameBoardMinimalRepresentationView.swift in Sources */,
+				AFB9E56419A90597009242A7 /* GameBoardView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -293,7 +367,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -329,7 +403,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
@@ -341,9 +415,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = SuperTicTacToe/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -353,9 +431,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = SuperTicTacToe/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
@@ -413,6 +495,7 @@
 				AF04AAEF19A6AC4F000D97FF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		AF04AAF019A6AC4F000D97FF /* Build configuration list for PBXNativeTarget "SuperTicTacToeTests" */ = {
 			isa = XCConfigurationList;
@@ -421,6 +504,7 @@
 				AF04AAF219A6AC4F000D97FF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

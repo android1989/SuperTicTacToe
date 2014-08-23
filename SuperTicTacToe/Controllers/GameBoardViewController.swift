@@ -10,6 +10,7 @@ import UIKit
 
 class GameBoardViewController: UIViewController, GameBoardDataSource, GameBoardDelegate {
 
+    var drilledInGameBoard: GameBoardView!
     var gameBoard: GameBoardView!
     var gameBoardZoomed = false
     
@@ -22,6 +23,17 @@ class GameBoardViewController: UIViewController, GameBoardDataSource, GameBoardD
         gameBoard.delegate = self
         gameBoard.buildBoard()
         view.addSubview(gameBoard)
+
+        drilledInGameBoard = GameBoardView(frame: CGRectMake(0, 200, 300, 300))
+        drilledInGameBoard.center = view.center
+        drilledInGameBoard.hidden = true
+        drilledInGameBoard.dataSource = self
+        drilledInGameBoard.delegate = self
+        drilledInGameBoard.userInteractionEnabled = false
+        drilledInGameBoard.buildBoard()
+        view.addSubview(drilledInGameBoard)
+    
+    
     }
 
     override func didReceiveMemoryWarning() {
@@ -36,7 +48,13 @@ class GameBoardViewController: UIViewController, GameBoardDataSource, GameBoardD
     // MARK: - GameBoardDataSource
     
     func gameBoardView(gameBoardView: GameBoardView!, cellForItemAtIndex index: Int!) -> GameBoardCell! {
-        var view = GameBoardGameCell(frame: CGRectMake(0, 0, 160, 160))
+        if gameBoardView === self.drilledInGameBoard {
+            var view = GameBoardMoveCell(frame: CGRectMake(0, 0, Calculations.oneThird(CGRectGetWidth(self.drilledInGameBoard.bounds)), Calculations.oneThird(CGRectGetWidth(self.drilledInGameBoard.bounds))))
+            return view
+        }
+        
+        var view = GameBoardMinimalRepresentationView(frame: CGRectMake(0, 0, Calculations.oneThird(CGRectGetWidth(self.view.bounds)), Calculations.oneThird(CGRectGetWidth(self.view.bounds))))
+        view.buildBoard()
         
         return view
     }
@@ -50,7 +68,11 @@ class GameBoardViewController: UIViewController, GameBoardDataSource, GameBoardD
     }
     func gameBoardView(gameBoardView: GameBoardView!, didSelectItemAtIndexPath indexPath: Int!) {
         
+        var cell = gameBoardView.cellForIndex(indexPath)
+        
         if gameBoardZoomed {
+            drilledInGameBoard.hidden = true
+            cell.hidden = false
             UIView.animateWithDuration(1, animations: {  [unowned self] () -> Void in
                 self.gameBoard.transform = CGAffineTransformIdentity
             }, completion: {  [unowned self] (finished) -> Void in
@@ -58,8 +80,6 @@ class GameBoardViewController: UIViewController, GameBoardDataSource, GameBoardD
             })
             return
         }
-        
-        var cell = gameBoardView.cellForIndex(indexPath)
         
         var xAnchor = CGFloat(indexPath%3)/2.0
         var yAnchor = CGFloat(indexPath/3)/2.0
@@ -70,6 +90,9 @@ class GameBoardViewController: UIViewController, GameBoardDataSource, GameBoardD
         self.gameBoard.frame = frame
         UIView.animateWithDuration(1, animations: { [unowned self] () -> Void in
             self.gameBoard.transform = CGAffineTransformMakeScale(scale, scale)
+        }, completion: {  [unowned self] (finished) -> Void in
+            self.drilledInGameBoard.hidden = false
+            cell.hidden = true
         })
         
         gameBoardZoomed = true
@@ -86,6 +109,7 @@ class GameBoardViewController: UIViewController, GameBoardDataSource, GameBoardD
                 var transform = CGAffineTransformScale(self.gameBoard.transform, scale, scale);
                 pinchGestureRecognizer.scale = 1.0;
             case UIGestureRecognizerState.Ended:
+                drilledInGameBoard.hidden = true
                 UIView.animateWithDuration(1, animations: { [unowned self] () -> Void in
                     self.gameBoard.transform = CGAffineTransformIdentity
                 })

@@ -51,14 +51,6 @@ class GameBoardView: UIView {
         return cells[index]
     }
     
-    private func oneThird(value: CGFloat) -> CGFloat {
-        return value/3
-    }
-    
-    private func twoThird(value: CGFloat) -> CGFloat {
-        return 2*value/3
-    }
-    
     func buildBoard() {
         cells.removeAll(keepCapacity: true)
         
@@ -66,12 +58,12 @@ class GameBoardView: UIView {
         for index; index < 9; ++index
         {
             let gameBoardCell = dataSource?.gameBoardView(self, cellForItemAtIndex:index)
-            let xCoord = CGFloat(index%3)*oneThird(CGRectGetWidth(bounds));
-            let yCoord = CGFloat(index/3)*oneThird(CGRectGetHeight(bounds));
+            let xCoord = CGFloat(index%3)*Calculations.oneThird(CGRectGetWidth(bounds));
+            let yCoord = CGFloat(index/3)*Calculations.oneThird(CGRectGetHeight(bounds));
             
             var frame = gameBoardCell?.frame
             frame?.origin = CGPointMake(xCoord+lineWidth/2, yCoord+lineWidth/2)
-            frame?.size = CGSizeMake(oneThird(CGRectGetWidth(bounds))-lineWidth, oneThird(CGRectGetHeight(bounds))-lineWidth)
+            frame?.size = CGSizeMake(Calculations.oneThird(CGRectGetWidth(bounds))-lineWidth, Calculations.oneThird(CGRectGetHeight(bounds))-lineWidth)
             gameBoardCell?.frame = frame!
             
             cells.append(gameBoardCell!)
@@ -81,10 +73,10 @@ class GameBoardView: UIView {
     
     private func buildLines() {
         
-        lineX1 = buildLine(CGPointMake(oneThird(CGRectGetWidth(bounds)), lineWidth) , toPoint: CGPointMake(oneThird(CGRectGetWidth(bounds)), CGRectGetHeight(bounds)-lineWidth))
-        lineX2 = buildLine(CGPointMake(twoThird(CGRectGetWidth(bounds)), lineWidth) , toPoint: CGPointMake(twoThird(CGRectGetWidth(bounds)), CGRectGetHeight(bounds)-lineWidth))
-        lineY1 = buildLine(CGPointMake(lineWidth, oneThird(CGRectGetHeight(bounds))) , toPoint: CGPointMake(CGRectGetWidth(bounds)-lineWidth,  oneThird(CGRectGetHeight(bounds))))
-        lineY2 = buildLine(CGPointMake(lineWidth, twoThird(CGRectGetHeight(bounds))) , toPoint: CGPointMake(CGRectGetWidth(bounds)-lineWidth,twoThird(CGRectGetHeight(bounds))))
+        lineX1 = buildLine(CGPointMake(Calculations.oneThird(CGRectGetWidth(bounds)), lineWidth) , toPoint: CGPointMake(Calculations.oneThird(CGRectGetWidth(bounds)), CGRectGetHeight(bounds)-lineWidth))
+        lineX2 = buildLine(CGPointMake(Calculations.twoThird(CGRectGetWidth(bounds)), lineWidth) , toPoint: CGPointMake(Calculations.twoThird(CGRectGetWidth(bounds)), CGRectGetHeight(bounds)-lineWidth))
+        lineY1 = buildLine(CGPointMake(lineWidth, Calculations.oneThird(CGRectGetHeight(bounds))) , toPoint: CGPointMake(CGRectGetWidth(bounds)-lineWidth,  Calculations.oneThird(CGRectGetHeight(bounds))))
+        lineY2 = buildLine(CGPointMake(lineWidth, Calculations.twoThird(CGRectGetHeight(bounds))) , toPoint: CGPointMake(CGRectGetWidth(bounds)-lineWidth,Calculations.twoThird(CGRectGetHeight(bounds))))
         
         layer.addSublayer(lineX1)
         layer.addSublayer(lineX2)
