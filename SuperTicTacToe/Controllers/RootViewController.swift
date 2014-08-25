@@ -34,17 +34,18 @@ class RootViewController: UIViewController, ViewModelDelegate, UICollectionViewD
     // MARK: UICollectionViewDelegate
     
     func collectionView(collectionView: UICollectionView!, didSelectItemAtIndexPath indexPath: NSIndexPath!) {
-        var gameBoardViewController = GameBoardViewController()
-        addChildViewController(gameBoardViewController)
-        view.addSubview(gameBoardViewController.view)
-        gameBoardViewController.didMoveToParentViewController(self)
+        self.performSegueWithIdentifier("gameBoardSegue", sender: self)
     }
     
     // MARK: ViewModelDelegate
     
     func viewModelDataUpdated(viewModel: MenuViewModel) {
         viewModel.fetchObjectsIfNeeded()
-        matchesCollectionView?.reloadData()
+        if viewModel.authenticated {
+            addGameButton?.alpha = 1
+            matchesCollectionView?.reloadData()
+        }
+        
     }
     
     // MARK: IBActions

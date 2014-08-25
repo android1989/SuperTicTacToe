@@ -15,6 +15,8 @@ protocol ViewModelDelegate : NSObjectProtocol {
 
 class MenuViewModel: NSObject, UICollectionViewDataSource {
    
+    var authenticated = false
+    var fetchedMatches = false
     var matches: Array<GKTurnBasedMatch>! {
         didSet {
             self.delegate?.viewModelDataUpdated(self)
@@ -31,17 +33,20 @@ class MenuViewModel: NSObject, UICollectionViewDataSource {
     }
     
     func fetchObjectsIfNeeded() {
-        GameCenterMatchManager.sharedInstance.allMatchesWithCompletionHandler { (matches, error) in
-            
-            if matches != nil {
-                self.matches = matches
+        if !fetchedMatches && GKLocalPlayer.localPlayer().authenticated {
+            GameCenterMatchManager.sharedInstance.allMatchesWithCompletionHandler { (matches, error) in
+                if matches != nil {
+                    self.matches = matches
+                }
             }
+            fetchedMatches = true
         }
     }
     
     // MARK: Authentication
     func authenticationChanged() {
         if GKLocalPlayer.localPlayer().authenticated {
+            authenticated = true
             self.delegate?.viewModelDataUpdated(self)
         }
     }

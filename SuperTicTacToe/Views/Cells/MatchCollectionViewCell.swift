@@ -20,40 +20,53 @@ class MatchCollectionViewCell: UICollectionViewCell {
     }
     
     func configureWithMatch(match: GKTurnBasedMatch) {
-//        var localPlayer = GKTurnBasedParticipant()
-//        var opponent: GKTurnBasedParticipant?
-//        //var participant = match.participants.first as GKTurnBasedParticipant
-//        
-//        for participant in match.participants {
-//            if participant.playerID == GKLocalPlayer.localPlayer().playerID {
-//                localPlayer = participant as GKTurnBasedParticipant
-//            }else{
-//                opponent = participant as GKTurnBasedParticipant
-//            }
-//        }
-//        opponetLabel?.text = opponent?.player.displayName
-//        
-//        switch match.status {
-//        case GKTurnBasedMatchStatus.Ended:
-//            switch localPlayer.matchOutcome {
-//            case GKTurnBasedMatchOutcome.Won:
-//                statusLabel?.text = "Won"
-//            case GKTurnBasedMatchOutcome.Lost:
-//                statusLabel?.text = "Lost"
-//            case GKTurnBasedMatchOutcome.Tied:
-//                statusLabel?.text = "Tied"
-//            default:
-//                statusLabel?.text = "Unknown"
-//            }
-//        case GKTurnBasedMatchStatus.Open:
-//            if match.currentParticipant == localPlayer {
-//                statusLabel?.text = "Your Turn"
-//            }else{
-//                statusLabel?.text = "Their Turn"
-//            }
-//        default:
-//            statusLabel?.text = "Unknown"
-//        }
+        var localPlayer = GKTurnBasedParticipant()
+        var opponent: GKTurnBasedParticipant?
+        //var participant = match.participants.first as GKTurnBasedParticipant
+        
+        for participant in match.participants {
+            
+            if let playerID = participant.playerID? {
+                println(playerID)
+                if participant.playerID == GKLocalPlayer.localPlayer().playerID {
+                    localPlayer = participant as GKTurnBasedParticipant
+                }else{
+                    opponent = participant as GKTurnBasedParticipant
+                }
+            }else{
+                opponent = participant as GKTurnBasedParticipant
+            }
+            
+            
+        }
+        if let player = opponent?.player? {
+            opponetLabel?.text = opponent?.player?.displayName
+        }else{
+            opponetLabel?.text = "Auto-matching..."
+        }
+        
+        
+        switch match.status {
+        case GKTurnBasedMatchStatus.Ended:
+            switch localPlayer.matchOutcome {
+            case GKTurnBasedMatchOutcome.Won:
+                statusLabel?.text = "Won"
+            case GKTurnBasedMatchOutcome.Lost:
+                statusLabel?.text = "Lost"
+            case GKTurnBasedMatchOutcome.Tied:
+                statusLabel?.text = "Tied"
+            default:
+                statusLabel?.text = "Unknown"
+            }
+        case GKTurnBasedMatchStatus.Open:
+            if match.currentParticipant == localPlayer {
+                statusLabel?.text = "Your Turn"
+            }else{
+                statusLabel?.text = "Their Turn"
+            }
+        default:
+            statusLabel?.text = "Unknown"
+        }
     }
 
 }

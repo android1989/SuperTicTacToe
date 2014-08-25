@@ -99,6 +99,9 @@ class GameBoardViewController: UIViewController, GameBoardDataSource, GameBoardD
     }
     
     // MARK: - Pinch Gesture
+    @IBAction func dissmissGameBoard() {
+        self.dismissViewControllerAnimated(true, completion: nil)
+    }
     
     @IBAction func pinchGestureRecognized(pinchGestureRecognizer: UIPinchGestureRecognizer) {
         if gameBoardZoomed {

@@ -40,7 +40,7 @@
                                     <outlet property="delegate" destination="vXZ-lx-hvc" id="74r-xf-2mr"/>
                                 </connections>
                             </collectionView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0J0-j8-7PA">
+                            <button opaque="NO" alpha="0.0" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0J0-j8-7PA">
                                 <rect key="frame" x="123" y="55" width="74" height="30"/>
                                 <state key="normal" title="Add Game">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -60,9 +60,6 @@
                             <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="q5Y-fx-8hg" secondAttribute="bottom" constant="89" id="lVj-hl-kID"/>
                             <constraint firstItem="q5Y-fx-8hg" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" id="p1Y-p8-cFS"/>
                         </constraints>
-                        <connections>
-                            <outletCollection property="gestureRecognizers" destination="Kyc-BY-6lC" appends="YES" id="1Ru-2Q-DFQ"/>
-                        </connections>
                     </view>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4">
@@ -72,15 +69,48 @@
                     <connections>
                         <outlet property="addGameButton" destination="0J0-j8-7PA" id="ba0-sk-pXj"/>
                         <outlet property="matchesCollectionView" destination="q5Y-fx-8hg" id="jVa-q9-qKI"/>
+                        <segue destination="RGg-UQ-oMB" kind="custom" identifier="gameBoardSegue" id="4pY-3p-KSK"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
-                <pinchGestureRecognizer id="Kyc-BY-6lC">
-                    <connections>
-                        <action selector="pinchGestureRecognized:" destination="vXZ-lx-hvc" id="INI-rI-8Nb"/>
-                    </connections>
-                </pinchGestureRecognizer>
             </objects>
+        </scene>
+        <!--Game Board View Controller-->
+        <scene sceneID="2np-ee-WwA">
+            <objects>
+                <viewController id="RGg-UQ-oMB" customClass="GameBoardViewController" customModule="SuperTicTacToe" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="MjB-P3-Ze2"/>
+                        <viewControllerLayoutGuide type="bottom" id="7oH-cn-Nuq"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Ier-1k-vxO">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qfQ-fj-h0T">
+                                <rect key="frame" x="0.0" y="556" width="600" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="6NR-Re-YMF"/>
+                                </constraints>
+                                <state key="normal" title="Close">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="dissmissGameBoard" destination="RGg-UQ-oMB" eventType="touchUpInside" id="0DN-GC-YRC"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="7oH-cn-Nuq" firstAttribute="top" secondItem="qfQ-fj-h0T" secondAttribute="bottom" id="5YU-Kx-ICj"/>
+                            <constraint firstItem="qfQ-fj-h0T" firstAttribute="leading" secondItem="Ier-1k-vxO" secondAttribute="leading" id="b8a-i2-EK1"/>
+                            <constraint firstAttribute="trailing" secondItem="qfQ-fj-h0T" secondAttribute="trailing" id="vKd-Az-2vy"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="aTq-cM-0ZP" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="514" y="-504"/>
         </scene>
     </scenes>
 </document>
