@@ -101,7 +101,8 @@ class GameCenterMatchManager: NSObject, GKTurnBasedMatchmakerViewControllerDeleg
     func turnBasedMatchmakerViewController(viewController: GKTurnBasedMatchmakerViewController!, playerQuitForMatch match: GKTurnBasedMatch!) {
         presentationViewController?.dismissViewControllerAnimated(true, completion: nil)
         
-        match.endMatchInTurnWithMatchData(nil, completionHandler: nil)
+        match.currentParticipant.matchOutcome = GKTurnBasedMatchOutcome.Quit
+        match.endMatchInTurnWithMatchData(NSData(), completionHandler: nil)
     }
     
     func turnBasedMatchmakerViewControllerWasCancelled(viewController: GKTurnBasedMatchmakerViewController!) {
@@ -156,6 +157,17 @@ class GameCenterMatchManager: NSObject, GKTurnBasedMatchmakerViewControllerDeleg
         
         presentationViewController?.presentViewController(viewController, animated: true, completion:nil)
     }
+    
+    // MARK: Matches
+    func allMatchesWithCompletionHandler(completionHandler: (([GKTurnBasedMatch]?, NSError!) -> Void)!) {
+        GKTurnBasedMatch.loadMatchesWithCompletionHandler { (matches, error) -> Void in
+            if completionHandler != nil {
+                completionHandler(matches as [GKTurnBasedMatch]?, error)
+            }
+            
+        }
+    }
+    
     // MARK: Helpers
     
     func nextParticipantForMatch(match: GKTurnBasedMatch) -> GKTurnBasedParticipant {

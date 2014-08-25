@@ -7,13 +7,23 @@
 //
 
 import UIKit
-
-class RootViewController: UIViewController {
-
+import GameKit
+class RootViewController: UIViewController, ViewModelDelegate, UICollectionViewDelegate {
+    
+    //ViewModels
+    var viewModel = MenuViewModel()
+    
+    //UI
+    @IBOutlet var addGameButton: UIButton?
+    @IBOutlet var matchesCollectionView: UICollectionView?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        
+        viewModel.delegate = self
+        viewModel.registerCollectionViewCells(matchesCollectionView!)
+        matchesCollectionView?.dataSource = viewModel
+    
     }
 
     override func didReceiveMemoryWarning() {
@@ -21,16 +31,21 @@ class RootViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue!, sender: AnyObject!) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    // MARK: UICollectionViewDelegate
+    
+    func collectionView(collectionView: UICollectionView!, didSelectItemAtIndexPath indexPath: NSIndexPath!) {
+        var gameBoardViewController = GameBoardViewController()
+        addChildViewController(gameBoardViewController)
+        view.addSubview(gameBoardViewController.view)
+        gameBoardViewController.didMoveToParentViewController(self)
     }
-    */
+    
+    // MARK: ViewModelDelegate
+    
+    func viewModelDataUpdated(viewModel: MenuViewModel) {
+        viewModel.fetchObjectsIfNeeded()
+        matchesCollectionView?.reloadData()
+    }
     
     // MARK: IBActions
     

@@ -2,7 +2,6 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6206.8" systemVersion="14A329f" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="vXZ-lx-hvc">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7026.1"/>
-        <capability name="Constraints with attributes relative to the layout margin" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--Root View Controller-->
@@ -14,11 +13,35 @@
                         <viewControllerLayoutGuide type="bottom" id="2fi-mo-0CV"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="kh9-bI-dsS">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="q5Y-fx-8hg">
+                                <rect key="frame" x="0.0" y="111" width="320" height="368"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.40000000000000002" colorSpace="calibratedRGB"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="0tc-2Q-5Oa">
+                                    <size key="itemSize" width="300" height="300"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="BiR-ii-xW4">
+                                        <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="0.0" y="0.0" width="300" height="300"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </view>
+                                    </collectionViewCell>
+                                </cells>
+                                <connections>
+                                    <outlet property="delegate" destination="vXZ-lx-hvc" id="74r-xf-2mr"/>
+                                </connections>
+                            </collectionView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0J0-j8-7PA">
-                                <rect key="frame" x="510" y="28" width="74" height="30"/>
+                                <rect key="frame" x="123" y="55" width="74" height="30"/>
                                 <state key="normal" title="Add Game">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -26,25 +49,30 @@
                                     <action selector="addNewGame" destination="vXZ-lx-hvc" eventType="touchUpInside" id="tQo-jl-pNF"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oCj-bS-SpA">
-                                <rect key="frame" x="16" y="28" width="70" height="30"/>
-                                <state key="normal" title="Send Turn">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <gestureRecognizers/>
                         <constraints>
-                            <constraint firstItem="0J0-j8-7PA" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" constant="8" id="Dkr-4q-Apq"/>
-                            <constraint firstItem="0J0-j8-7PA" firstAttribute="trailing" secondItem="kh9-bI-dsS" secondAttribute="trailingMargin" id="G8m-p8-BBX"/>
-                            <constraint firstItem="oCj-bS-SpA" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" id="PyI-xp-Bpd"/>
-                            <constraint firstItem="oCj-bS-SpA" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" constant="8" id="Qlx-mn-qv6"/>
+                            <constraint firstItem="q5Y-fx-8hg" firstAttribute="top" secondItem="0J0-j8-7PA" secondAttribute="bottom" constant="26" id="3MK-3W-Wej"/>
+                            <constraint firstItem="0J0-j8-7PA" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" constant="35" id="Dkr-4q-Apq"/>
+                            <constraint firstAttribute="centerX" secondItem="0J0-j8-7PA" secondAttribute="centerX" id="Kai-jX-prL"/>
+                            <constraint firstAttribute="trailing" secondItem="q5Y-fx-8hg" secondAttribute="trailing" id="Pee-89-VpR"/>
+                            <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="q5Y-fx-8hg" secondAttribute="bottom" constant="89" id="lVj-hl-kID"/>
+                            <constraint firstItem="q5Y-fx-8hg" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" id="p1Y-p8-cFS"/>
                         </constraints>
                         <connections>
                             <outletCollection property="gestureRecognizers" destination="Kyc-BY-6lC" appends="YES" id="1Ru-2Q-DFQ"/>
                         </connections>
                     </view>
+                    <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4">
+                        <size key="portraitSize" width="320" height="568"/>
+                        <size key="landscapeSize" width="568" height="320"/>
+                    </simulatedScreenMetrics>
+                    <connections>
+                        <outlet property="addGameButton" destination="0J0-j8-7PA" id="ba0-sk-pXj"/>
+                        <outlet property="matchesCollectionView" destination="q5Y-fx-8hg" id="jVa-q9-qKI"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
                 <pinchGestureRecognizer id="Kyc-BY-6lC">
