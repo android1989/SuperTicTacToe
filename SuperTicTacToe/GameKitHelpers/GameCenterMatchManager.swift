@@ -23,6 +23,7 @@ class GameCenterMatchManager: NSObject, GKTurnBasedMatchmakerViewControllerDeleg
     var presentationViewController: UIViewController?
     var delegate: GameCenterMatchManagerDelegate?
     var currentMatch: GKTurnBasedMatch?
+    var bannedList: Array<String>!
     
     class var sharedInstance : GameCenterMatchManager {
         struct Static {
@@ -36,6 +37,13 @@ class GameCenterMatchManager: NSObject, GKTurnBasedMatchmakerViewControllerDeleg
         
         var notificationCenter = NSNotificationCenter.defaultCenter()
         notificationCenter.addObserver(self, selector:"authenticationChanged", name:GKPlayerAuthenticationDidChangeNotificationName , object: nil)
+        
+        var array = NSUserDefaults.standardUserDefaults().arrayForKey(kGameCenterBannedListKey) as [String]?
+        if let unwrappedArray = array? {
+            self.bannedList = unwrappedArray
+        }else{
+            self.bannedList = [String]()
+        }
     }
     
     // MARK: Authentication
@@ -76,6 +84,15 @@ class GameCenterMatchManager: NSObject, GKTurnBasedMatchmakerViewControllerDeleg
         presentationViewController?.presentViewController(requestViewController, animated:true, completion: nil)
     }
     
+    func submitTurn(gameModel: GameModel) {
+        var participants = gameModel.turnBasedMatch.participants
+        var data = NSKeyedArchiver.archivedDataWithRootObject(gameModel)
+        gameModel.turnBasedMatch.endTurnWithNextParticipants([self.nextParticipantForMatch(gameModel.turnBasedMatch)], turnTimeout: GKTurnTimeoutNone, matchData:data) { (error) -> Void in
+            NSNotificationCenter.defaultCenter().postNotificationName(kGameCenterModelChanged, object: nil, userInfo: [kGameCenterModelKey: gameModel.turnBasedMatch])
+            NSNotificationCenter.defaultCenter().postNotificationName(kGameCenterMatchesChanged, object: nil)
+        }
+    }
+    
     // MARK: GKTurnBasedMatchmakerViewControllerDelegate
     
     func turnBasedMatchmakerViewController(viewController: GKTurnBasedMatchmakerViewController!, didFailWithError error: NSError!) {
@@ -86,23 +103,16 @@ class GameCenterMatchManager: NSObject, GKTurnBasedMatchmakerViewControllerDeleg
         
         presentationViewController?.dismissViewControllerAnimated(true, completion: nil)
     
-        var firstParticipant = match.participants.first as GKTurnBasedParticipant
-        if firstParticipant.lastTurnDate == nil {
-            delegate?.enterNewMatch(match)
-        }else{
-            if match.currentParticipant.playerID == GKLocalPlayer.localPlayer().playerID {
-                delegate?.takeTurn(match)
-            }else{
-                delegate?.layoutMatch(match)
-            }
-        }
+        NSNotificationCenter.defaultCenter().postNotificationName(kGameCenterModelChanged, object: nil, userInfo: [kGameCenterModelKey: match])
     }
     
     func turnBasedMatchmakerViewController(viewController: GKTurnBasedMatchmakerViewController!, playerQuitForMatch match: GKTurnBasedMatch!) {
         presentationViewController?.dismissViewControllerAnimated(true, completion: nil)
         
-        match.currentParticipant.matchOutcome = GKTurnBasedMatchOutcome.Quit
-        match.endMatchInTurnWithMatchData(NSData(), completionHandler: nil)
+        NSNotificationCenter.defaultCenter().postNotificationName(kGameCenterModelChanged, object: nil, userInfo: [kGameCenterModelKey: match])
+        
+        var participants = GameCenterMatchManager.sharedInstance.nextParticipantForMatch(match)
+        match.participantQuitInTurnWithOutcome(GKTurnBasedMatchOutcome.Quit, nextParticipants:[participants], turnTimeout: GKTurnTimeoutNone, matchData: match.matchData, completionHandler: nil)
     }
     
     func turnBasedMatchmakerViewControllerWasCancelled(viewController: GKTurnBasedMatchmakerViewController!) {
@@ -112,34 +122,16 @@ class GameCenterMatchManager: NSObject, GKTurnBasedMatchmakerViewControllerDeleg
     // MARK: GKLocalPlayerListener
     
     func player(player: GKPlayer!, matchEnded match: GKTurnBasedMatch!) {
-        if match.matchID == currentMatch!.matchID {
-            delegate?.recieveEndGame(match)
-        } else {
-            delegate?.sendNotice("Another Game Ended!", forMatch: match)
-        }
+    
+        NSNotificationCenter.defaultCenter().postNotificationName(kGameCenterModelChanged, object: nil, userInfo: [kGameCenterModelKey: match])
+        NSNotificationCenter.defaultCenter().postNotificationName(kGameCenterMatchesChanged, object: nil)
     }
     
     func player(player: GKPlayer!, receivedTurnEventForMatch match: GKTurnBasedMatch!, didBecomeActive: Bool) {
         
-        if match.matchID == currentMatch!.matchID {
-            if (match.currentParticipant.playerID == GKLocalPlayer.localPlayer().playerID) {
-                    // it's the current match and it's our turn now
-                currentMatch = match
-                delegate?.takeTurn(match)
-            } else {
-                // it's the current match, but it's someone else's turn
-                currentMatch = match
-                delegate?.layoutMatch(match)
-            }
-        } else {
-            if (match.currentParticipant.playerID == GKLocalPlayer.localPlayer().playerID) {
-                    // it's not the current match and it's our turn now
-                    delegate?.sendNotice("Its your turn", forMatch: match)
-            } else {
-                // it's the not current match, and it's someone else's
-                // turn
-            }
-        }
+        NSNotificationCenter.defaultCenter().postNotificationName(kGameCenterModelChanged, object: nil, userInfo: [kGameCenterModelKey: match])
+        
+        NSNotificationCenter.defaultCenter().postNotificationName(kGameCenterMatchesChanged, object: nil)
     }
     
     func player(player: GKPlayer!, didRequestMatchWithOtherPlayers playersToInvite: [AnyObject]!) {
@@ -159,19 +151,56 @@ class GameCenterMatchManager: NSObject, GKTurnBasedMatchmakerViewControllerDeleg
     }
     
     // MARK: Matches
-    func allMatchesWithCompletionHandler(completionHandler: (([GKTurnBasedMatch]?, NSError!) -> Void)!) {
+    func allMatchesWithCompletionHandler(completionHandler: (([GameModel]?, NSError!) -> Void)!) {
         GKTurnBasedMatch.loadMatchesWithCompletionHandler { (matches, error) -> Void in
             if completionHandler != nil {
-                completionHandler(matches as [GKTurnBasedMatch]?, error)
+    
+                var gameModels = matches.filter({ (match) -> Bool in
+                    for matchID in self.bannedList {
+                        if matchID == match.matchID {
+                            return false
+                        }
+                    }
+                    
+                    return true
+                })
+                
+                gameModels = gameModels.map({ (match) -> GameModel in
+                    return GameModel(turnBasedMatch: match as GKTurnBasedMatch)
+                })
+                completionHandler(gameModels as? [GameModel], error)
             }
             
         }
     }
     
+    func removeGameForPlayer(gameModel: GameModel) {
+        var match = gameModel.turnBasedMatch;
+        if let unwrappedParticipant = match.currentParticipant? {
+            if unwrappedParticipant.playerID == GKLocalPlayer.localPlayer().playerID {
+                var participants = GameCenterMatchManager.sharedInstance.nextParticipantForMatch(match)
+                match.participantQuitInTurnWithOutcome(GKTurnBasedMatchOutcome.Quit, nextParticipants:[participants], turnTimeout: GKTurnTimeoutNone, matchData: match.matchData, completionHandler:{ (error) in
+                    self.bannedList.append(match.matchID)
+                    NSUserDefaults.standardUserDefaults().setObject(self.bannedList, forKey: kGameCenterBannedListKey)
+                    NSUserDefaults.standardUserDefaults().synchronize()
+                })
+            }else{
+                match.participantQuitOutOfTurnWithOutcome(GKTurnBasedMatchOutcome.Quit, withCompletionHandler: { (error) in
+                    
+                    self.bannedList.append(match.matchID)
+                    NSUserDefaults.standardUserDefaults().setObject(self.bannedList, forKey: kGameCenterBannedListKey)
+                    NSUserDefaults.standardUserDefaults().synchronize()
+                })
+            }
+        }
+        
+        NSNotificationCenter.defaultCenter().postNotificationName(kGameCenterMatchesChanged, object: nil)
+    }
     // MARK: Helpers
     
     func nextParticipantForMatch(match: GKTurnBasedMatch) -> GKTurnBasedParticipant {
         
+        var count = match.participants.count
         var currentIndex = 0
         for participant in match.participants {
             if participant as GKTurnBasedParticipant == match.currentParticipant {
@@ -181,7 +210,7 @@ class GameCenterMatchManager: NSObject, GKTurnBasedMatchmakerViewControllerDeleg
         }
 
         var nextIndex = (currentIndex + 1) % countElements(match.participants)
-        var nextParticipant = currentMatch?.participants[nextIndex] as GKTurnBasedParticipant
+        var nextParticipant = match.participants[nextIndex] as GKTurnBasedParticipant
         
         return nextParticipant
     }

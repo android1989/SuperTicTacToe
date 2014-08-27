@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6206.8" systemVersion="14A329f" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="vXZ-lx-hvc">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7026.1"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
         <!--Root View Controller-->
@@ -16,21 +17,21 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="q5Y-fx-8hg">
-                                <rect key="frame" x="0.0" y="111" width="320" height="368"/>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="q5Y-fx-8hg">
+                                <rect key="frame" x="0.0" y="111" width="320" height="457"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.40000000000000002" colorSpace="calibratedRGB"/>
-                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="0tc-2Q-5Oa">
-                                    <size key="itemSize" width="300" height="300"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="0tc-2Q-5Oa">
+                                    <size key="itemSize" width="320" height="100"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                                    <inset key="sectionInset" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="BiR-ii-xW4">
                                         <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="0.0" y="0.0" width="300" height="300"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="100"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
@@ -57,7 +58,7 @@
                             <constraint firstItem="0J0-j8-7PA" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" constant="35" id="Dkr-4q-Apq"/>
                             <constraint firstAttribute="centerX" secondItem="0J0-j8-7PA" secondAttribute="centerX" id="Kai-jX-prL"/>
                             <constraint firstAttribute="trailing" secondItem="q5Y-fx-8hg" secondAttribute="trailing" id="Pee-89-VpR"/>
-                            <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="q5Y-fx-8hg" secondAttribute="bottom" constant="89" id="lVj-hl-kID"/>
+                            <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="q5Y-fx-8hg" secondAttribute="bottom" id="lVj-hl-kID"/>
                             <constraint firstItem="q5Y-fx-8hg" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" id="p1Y-p8-cFS"/>
                         </constraints>
                     </view>
@@ -84,11 +85,11 @@
                         <viewControllerLayoutGuide type="bottom" id="7oH-cn-Nuq"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="Ier-1k-vxO">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qfQ-fj-h0T">
-                                <rect key="frame" x="0.0" y="556" width="600" height="44"/>
+                                <rect key="frame" x="0.0" y="524" width="320" height="44"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="6NR-Re-YMF"/>
                                 </constraints>
@@ -96,17 +97,57 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="dissmissGameBoard" destination="RGg-UQ-oMB" eventType="touchUpInside" id="0DN-GC-YRC"/>
+                                    <action selector="dismissGameBoard" destination="RGg-UQ-oMB" eventType="touchUpInside" id="F23-iB-87X"/>
                                 </connections>
                             </button>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="D7P-b2-1aq">
+                                <rect key="frame" x="10" y="134" width="300" height="300"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="D7P-b2-1aq" secondAttribute="height" multiplier="1:1" id="S7a-hm-spE"/>
+                                </constraints>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="Gcu-9h-ACg">
+                                    <size key="itemSize" width="33" height="33"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="mlb-Ec-Lez">
+                                        <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="0.0" y="0.0" width="33" height="33"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </view>
+                                    </collectionViewCell>
+                                </cells>
+                                <connections>
+                                    <outlet property="dataSource" destination="RGg-UQ-oMB" id="dRb-ka-gSU"/>
+                                    <outlet property="delegate" destination="RGg-UQ-oMB" id="4e5-GU-Xs0"/>
+                                </connections>
+                            </collectionView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="7oH-cn-Nuq" firstAttribute="top" secondItem="qfQ-fj-h0T" secondAttribute="bottom" id="5YU-Kx-ICj"/>
+                            <constraint firstItem="D7P-b2-1aq" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Ier-1k-vxO" secondAttribute="leading" id="KmM-gq-lcL"/>
+                            <constraint firstAttribute="centerX" secondItem="D7P-b2-1aq" secondAttribute="centerX" id="MAK-lb-bla"/>
+                            <constraint firstAttribute="centerY" secondItem="D7P-b2-1aq" secondAttribute="centerY" id="XdY-pW-we6"/>
                             <constraint firstItem="qfQ-fj-h0T" firstAttribute="leading" secondItem="Ier-1k-vxO" secondAttribute="leading" id="b8a-i2-EK1"/>
+                            <constraint firstItem="D7P-b2-1aq" firstAttribute="top" secondItem="MjB-P3-Ze2" secondAttribute="bottom" constant="114" id="t5c-jN-yJy"/>
+                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="D7P-b2-1aq" secondAttribute="trailing" id="v8l-vP-7Le"/>
                             <constraint firstAttribute="trailing" secondItem="qfQ-fj-h0T" secondAttribute="trailing" id="vKd-Az-2vy"/>
                         </constraints>
                     </view>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4">
+                        <size key="portraitSize" width="320" height="568"/>
+                        <size key="landscapeSize" width="568" height="320"/>
+                    </simulatedScreenMetrics>
+                    <connections>
+                        <outlet property="gameBoardCollectionView" destination="D7P-b2-1aq" id="YXv-Eb-Cm8"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aTq-cM-0ZP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

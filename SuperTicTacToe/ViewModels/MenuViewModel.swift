@@ -9,27 +9,32 @@
 import UIKit
 import GameKit
 
-protocol ViewModelDelegate : NSObjectProtocol {
+protocol MenuViewModelDelegate : NSObjectProtocol {
     func viewModelDataUpdated(viewModel: MenuViewModel)
 }
 
-class MenuViewModel: NSObject, UICollectionViewDataSource {
+
+class MenuViewModel: NSObject {
    
     var authenticated = false
     var fetchedMatches = false
-    var matches: Array<GKTurnBasedMatch>! {
+    var selectedMatch: GameModel?
+    var delegate: MenuViewModelDelegate?
+    
+    var matches: Array<GameModel>! {
         didSet {
             self.delegate?.viewModelDataUpdated(self)
         }
     }
     
-    var delegate: ViewModelDelegate?
-    
     override init() {
-        matches = Array<GKTurnBasedMatch>()
+        matches = Array<GameModel>()
         super.init()
-        var notificationCenter = NSNotificationCenter.defaultCenter()
-        notificationCenter.addObserver(self, selector:"authenticationChanged", name:GKPlayerAuthenticationDidChangeNotificationName , object: nil)
+        registerNotifications()
+    }
+    
+    deinit {
+        NSNotificationCenter.defaultCenter().removeObserver(self)
     }
     
     func fetchObjectsIfNeeded() {
@@ -43,29 +48,23 @@ class MenuViewModel: NSObject, UICollectionViewDataSource {
         }
     }
     
+    func registerNotifications() {
+        
+        var notificationCenter = NSNotificationCenter.defaultCenter()
+        notificationCenter.addObserver(self, selector:"authenticationChanged", name:GKPlayerAuthenticationDidChangeNotificationName , object: nil)
+        notificationCenter.addObserver(self, selector: "observeMatchesChange:", name: kGameCenterMatchesChanged, object:nil)
+    }
+    
+    func observeMatchesChange(notification: NSNotification) {
+        self.delegate?.viewModelDataUpdated(self)
+    }
+    
     // MARK: Authentication
+    
     func authenticationChanged() {
         if GKLocalPlayer.localPlayer().authenticated {
             authenticated = true
             self.delegate?.viewModelDataUpdated(self)
         }
-    }
-    
-    // MARK: UICollectionViewDataSource
-    
-    func registerCollectionViewCells(collectionView: UICollectionView) {
-        
-        collectionView.registerNib(UINib(nibName: "MatchCollectionViewCell", bundle: nil),forCellWithReuseIdentifier: "Cell")
-    }
-    
-    func collectionView(collectionView: UICollectionView!, cellForItemAtIndexPath indexPath: NSIndexPath!) -> UICollectionViewCell! {
-        var matchCell = collectionView.dequeueReusableCellWithReuseIdentifier("Cell", forIndexPath: indexPath) as MatchCollectionViewCell
-        
-        matchCell.configureWithMatch(self.matches[indexPath.item])
-        return matchCell
-    }
-    
-    func collectionView(collectionView: UICollectionView!, numberOfItemsInSection section: Int) -> Int {
-        return self.matches.count
     }
 }

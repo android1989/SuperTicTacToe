@@ -7,11 +7,28 @@
 //
 
 import UIKit
+import GameKit
 
-enum GamePiece: Int {
-    case NotTaken = 0
-    case PlayerOne
-    case PlayerTwo
+class GameMove: NSObject {
+    
+    init(index: Int) {
+        var xSquare = (index%9)/3
+        var ySquare = ((index/9)/3)*3
+        var boardIndex = xSquare+ySquare
+        var smallBoardIndex = ((index%9)%3)+((index/9)*3)%9
+        self.bigGridIndex = boardIndex;
+        self.smallGridIndex = smallBoardIndex;
+        super.init()
+    }
+    
+    init(bigGridIndex: Int, smallGridIndex: Int) {
+        self.bigGridIndex = bigGridIndex
+        self.smallGridIndex = smallGridIndex
+        super.init()
+    }
+    
+    var bigGridIndex: Int;
+    var smallGridIndex: Int;
 }
 
 /* Grid Layout
@@ -21,11 +38,14 @@ enum GamePiece: Int {
     6  7  8
 */
 
-class GameModel: NSObject, NSCoding {
+class GameModel: NSObject , NSCoding {
     
-    var bigGameBoard: [([GamePiece])]!
+    var cellCount: Int;
+    var turnBasedMatch = GKTurnBasedMatch()
+    var bigGameBoard: [([String])]!
+    var moveSet: [GameMove]!
     
-    subscript(index: Int) -> Array<GamePiece> {
+    subscript(index: Int) -> Array<String> {
         get {
             // return an appropriate subscript value here
             assert(index < 9 && index >= 0, "Invalid index given")
@@ -37,46 +57,34 @@ class GameModel: NSObject, NSCoding {
             bigGameBoard[index] = newValue
         }
     }
+
+    init(turnBasedMatch: GKTurnBasedMatch) {
+        let repeatValue = [String](count: 9, repeatedValue:"")
+        bigGameBoard = [Array<String>](count: 9, repeatedValue:repeatValue)
+        moveSet = [GameMove]()
+        self.turnBasedMatch = turnBasedMatch
+        cellCount = 9*9;
+        super.init()
+    }
     
     override init() {
+        let repeatValue = [String](count: 9, repeatedValue:"")
+        bigGameBoard = [Array<String>](count: 9, repeatedValue:repeatValue)
+        moveSet = [GameMove]()
+        turnBasedMatch = GKTurnBasedMatch()
+        cellCount = 9*9;
         super.init()
-        
-        let repeatValue = [GamePiece](count: 3, repeatedValue:GamePiece.NotTaken)
-        bigGameBoard = [Array<GamePiece>](count: 9, repeatedValue:repeatValue)
     }
     
     required init(coder aDecoder: NSCoder) {
-        
-        var encodeArray = aDecoder.decodeObjectForKey("gameBoard") as [[Int]]
-        
-        var board = [[GamePiece]]()
-        for array: [Int] in encodeArray {
-            
-            var smallBoard = [GamePiece]()
-            for piece in array {
-                smallBoard.append(GamePiece.fromRaw(piece)!)
-            }
-            
-            board.append(smallBoard)
-        }
-    
-        bigGameBoard = board
+        cellCount = 9*9;
+        bigGameBoard = aDecoder.decodeObjectForKey("gameBoard") as [[String]]
+        moveSet = aDecoder.decodeObjectForKey("MoveSet") as [GameMove]
     }
     
     func encodeWithCoder(aCoder: NSCoder) {
         
-        var encodeArray = [[Int]]()
-        for array: [GamePiece] in bigGameBoard {
-            
-            var smallEncodeArray = [Int]()
-            for piece: GamePiece in array {
-                var gamePiece = piece as GamePiece
-                smallEncodeArray.append(gamePiece.toRaw())
-            }
-            
-            encodeArray.append(smallEncodeArray)
-        }
-        
-        aCoder.encodeObject(encodeArray)
+        aCoder.encodeObject(bigGameBoard, forKey: "gameBoard")
+        aCoder.encodeObject(moveSet, forKey: "MoveSet")
     }
 }

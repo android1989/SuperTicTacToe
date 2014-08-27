@@ -7,23 +7,32 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="MatchCollectionViewCell" customModule="SuperTicTacToe" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="300" height="300"/>
+            <rect key="frame" x="0.0" y="0.0" width="320" height="100"/>
             <autoresizingMask key="autoresizingMask"/>
             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                <rect key="frame" x="0.0" y="0.0" width="300" height="300"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="100"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GRh-Pc-QA1">
-                        <rect key="frame" x="8" y="139" width="284" height="21"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GRh-Pc-QA1">
+                        <rect key="frame" x="8" y="0.0" width="304" height="100"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CMx-H4-fSn">
-                        <rect key="frame" x="8" y="157" width="284" height="21"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CMx-H4-fSn">
+                        <rect key="frame" x="8" y="79" width="304" height="20.5"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rpg-Og-ued">
+                        <rect key="frame" x="223" y="35" width="89" height="30"/>
+                        <state key="normal" title="Delete Game">
+                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                        </state>
+                        <connections>
+                            <action selector="deleteGameBoard" destination="gTV-IL-0wX" eventType="touchUpInside" id="mBb-L8-VDC"/>
+                        </connections>
+                    </button>
                 </subviews>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 <nil key="simulatedStatusBarMetrics"/>
@@ -32,17 +41,24 @@
             <constraints>
                 <constraint firstItem="CMx-H4-fSn" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="157" id="G9Z-GJ-Gp7"/>
                 <constraint firstAttribute="trailing" secondItem="CMx-H4-fSn" secondAttribute="trailing" constant="8" id="NeQ-fq-OU7"/>
-                <constraint firstItem="GRh-Pc-QA1" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="139" id="YyK-v7-TjR"/>
+                <constraint firstItem="GRh-Pc-QA1" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="YyK-v7-TjR"/>
                 <constraint firstAttribute="trailing" secondItem="GRh-Pc-QA1" secondAttribute="trailing" constant="8" id="aPI-r7-D3I"/>
-                <constraint firstAttribute="bottom" secondItem="GRh-Pc-QA1" secondAttribute="bottom" constant="140" id="eBt-3F-Erz"/>
-                <constraint firstAttribute="bottom" secondItem="CMx-H4-fSn" secondAttribute="bottom" constant="122" id="vTi-L2-Yzl"/>
+                <constraint firstAttribute="bottom" secondItem="GRh-Pc-QA1" secondAttribute="bottom" id="eBt-3F-Erz"/>
+                <constraint firstAttribute="bottom" secondItem="CMx-H4-fSn" secondAttribute="bottom" id="vTi-L2-Yzl"/>
                 <constraint firstItem="GRh-Pc-QA1" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="8" id="yWg-Iu-CEC"/>
                 <constraint firstItem="CMx-H4-fSn" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="8" id="z4M-AY-7RH"/>
             </constraints>
+            <variation key="default">
+                <mask key="constraints">
+                    <exclude reference="G9Z-GJ-Gp7"/>
+                </mask>
+            </variation>
             <connections>
+                <outlet property="deleteButton" destination="rpg-Og-ued" id="1j4-Gc-ZV0"/>
                 <outlet property="opponetLabel" destination="GRh-Pc-QA1" id="NcN-k3-AOT"/>
                 <outlet property="statusLabel" destination="CMx-H4-fSn" id="wBV-W9-JgD"/>
             </connections>
+            <point key="canvasLocation" x="169" y="260.5"/>
         </collectionViewCell>
     </objects>
 </document>

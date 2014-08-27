@@ -52,6 +52,10 @@ class GameBoardView: UIView {
     }
     
     func buildBoard() {
+        for view in subviews {
+            view.removeFromSuperview()
+        }
+        
         cells.removeAll(keepCapacity: true)
         
         var index: Int = 0

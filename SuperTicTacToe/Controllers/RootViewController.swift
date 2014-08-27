@@ -8,7 +8,7 @@
 
 import UIKit
 import GameKit
-class RootViewController: UIViewController, ViewModelDelegate, UICollectionViewDelegate {
+class RootViewController: UIViewController, MenuViewModelDelegate, UICollectionViewDelegate, UICollectionViewDataSource, MatchCollectionViewCellDelegate {
     
     //ViewModels
     var viewModel = MenuViewModel()
@@ -21,8 +21,8 @@ class RootViewController: UIViewController, ViewModelDelegate, UICollectionViewD
         super.viewDidLoad()
         
         viewModel.delegate = self
-        viewModel.registerCollectionViewCells(matchesCollectionView!)
-        matchesCollectionView?.dataSource = viewModel
+        registerCollectionViewCells(matchesCollectionView!)
+        matchesCollectionView?.dataSource = self
     
     }
 
@@ -31,10 +31,23 @@ class RootViewController: UIViewController, ViewModelDelegate, UICollectionViewD
         // Dispose of any resources that can be recreated.
     }
     
+    // MARK: Segue
+    
+    override func prepareForSegue(segue: UIStoryboardSegue!, sender: AnyObject!) {
+        if (segue.identifier  == kGameBoardSegue)
+        {
+            var gameBoardViewController = segue.destinationViewController as GameBoardViewController;
+            
+            gameBoardViewController.gameBoardViewModel = GameBoardViewModel(gameModel:viewModel.selectedMatch!)
+        }
+    }
+    
     // MARK: UICollectionViewDelegate
     
     func collectionView(collectionView: UICollectionView!, didSelectItemAtIndexPath indexPath: NSIndexPath!) {
-        self.performSegueWithIdentifier("gameBoardSegue", sender: self)
+        
+        viewModel.selectedMatch = viewModel.matches[indexPath.item]
+        self.performSegueWithIdentifier(kGameBoardSegue, sender: self)
     }
     
     // MARK: ViewModelDelegate
@@ -45,17 +58,39 @@ class RootViewController: UIViewController, ViewModelDelegate, UICollectionViewD
             addGameButton?.alpha = 1
             matchesCollectionView?.reloadData()
         }
+    }
+    
+    // MARK: UICollectionViewDataSource
+    
+    func registerCollectionViewCells(collectionView: UICollectionView) {
         
+        collectionView.registerNib(UINib(nibName: "MatchCollectionViewCell", bundle: nil),forCellWithReuseIdentifier: "Cell")
     }
     
-    // MARK: IBActions
-    
-    @IBAction func sendTurn() {
-        if let currentMatch = GameCenterMatchManager.sharedInstance.currentMatch {
-            var nextParticipant = GameCenterMatchManager.sharedInstance.nextParticipantForMatch(currentMatch)
-            currentMatch.endTurnWithNextParticipants([nextParticipant], turnTimeout:DBL_MAX , matchData: nil, completionHandler: nil)
-        }
+    func collectionView(collectionView: UICollectionView!, cellForItemAtIndexPath indexPath: NSIndexPath!) -> UICollectionViewCell! {
+        var matchCell = collectionView.dequeueReusableCellWithReuseIdentifier("Cell", forIndexPath: indexPath) as MatchCollectionViewCell
+        
+        matchCell.delegate = self;
+        matchCell.configureWithModel(viewModel.matches[indexPath.item])
+        return matchCell
     }
+    
+    func collectionView(collectionView: UICollectionView!, numberOfItemsInSection section: Int) -> Int {
+        return viewModel.matches.count
+    }
+    
+    // MARK: MatchCollectionViewCellDelegate
+    func cellRequestGameBoardDeletion(cell: MatchCollectionViewCell) {
+        var index = matchesCollectionView?.indexPathForCell(cell)
+        
+        var gameModel = viewModel.matches[index!.item] as GameModel
+        
+        GameCenterMatchManager.sharedInstance.removeGameForPlayer(gameModel)
+        viewModel.matches.removeAtIndex(index!.item)
+        matchesCollectionView?.reloadData()
+    }
+    
+    // MARK: IBAction
 
     @IBAction func addNewGame() {
         GameCenterMatchManager.sharedInstance.findMatch()
