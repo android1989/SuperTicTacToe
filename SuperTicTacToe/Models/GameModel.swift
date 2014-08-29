@@ -9,7 +9,7 @@
 import UIKit
 import GameKit
 
-class GameMove: NSObject {
+class GameMove: NSObject, NSCoding {
     
     init(index: Int) {
         var xSquare = (index%9)/3
@@ -29,6 +29,17 @@ class GameMove: NSObject {
     
     var bigGridIndex: Int;
     var smallGridIndex: Int;
+    
+    required init(coder aDecoder: NSCoder) {
+        bigGridIndex = aDecoder.decodeObjectForKey("bigGridIndex") as Int
+        smallGridIndex = aDecoder.decodeObjectForKey("smallGridIndex") as Int
+    }
+    
+    func encodeWithCoder(aCoder: NSCoder) {
+        
+        aCoder.encodeObject(bigGridIndex, forKey: "bigGridIndex")
+        aCoder.encodeObject(smallGridIndex, forKey: "smallGridIndex")
+    }
 }
 
 /* Grid Layout
@@ -45,16 +56,18 @@ class GameModel: NSObject , NSCoding {
     var bigGameBoard: [([String])]!
     var moveSet: [GameMove]!
     
-    subscript(index: Int) -> Array<String> {
+    subscript(gameMove: GameMove) -> String {
         get {
             // return an appropriate subscript value here
-            assert(index < 9 && index >= 0, "Invalid index given")
-            return bigGameBoard[index]
+            assert(gameMove.bigGridIndex < 9 && gameMove.bigGridIndex >= 0, "Invalid index given")
+            assert(gameMove.smallGridIndex < 9 && gameMove.smallGridIndex >= 0, "Invalid index given")
+            return bigGameBoard[gameMove.bigGridIndex][gameMove.smallGridIndex]
         }
         set(newValue) {
             // perform a suitable setting action here
-            assert(index < 9 && index >= 0, "Invalid index given")
-            bigGameBoard[index] = newValue
+            assert(gameMove.bigGridIndex < 9 && gameMove.bigGridIndex >= 0, "Invalid index given")
+            assert(gameMove.smallGridIndex < 9 && gameMove.smallGridIndex >= 0, "Invalid index given")
+            bigGameBoard[gameMove.bigGridIndex][gameMove.smallGridIndex] = newValue
         }
     }
 

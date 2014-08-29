@@ -15,8 +15,21 @@ protocol GameBoardViewModelDelegate : NSObjectProtocol {
 
 class GameBoardViewModel: NSObject {
    
+    
     var gameModel: GameModel
     var delegate: GameBoardViewModelDelegate?
+    var turnText: String {
+        get {
+            if let unwrappedParticipant = self.gameModel.turnBasedMatch.currentParticipant? {
+                if unwrappedParticipant.playerID == GKLocalPlayer.localPlayer().playerID {
+                    return "Your Turn"
+                }else{
+                    return "Their Turn"
+                }
+            }
+            return "Their Turn"
+        }
+    }
     var currentTurn: Bool {
         get {
             return self.gameModel.turnBasedMatch.currentParticipant.playerID == GKLocalPlayer.localPlayer().playerID;
@@ -26,6 +39,7 @@ class GameBoardViewModel: NSObject {
     // MARK: Lifecycle
     init(gameModel: GameModel) {
         self.gameModel = gameModel
+        
         super.init()
         
         //setup
@@ -57,6 +71,13 @@ class GameBoardViewModel: NSObject {
         if let unwrappedUserInfo: Dictionary = notification.userInfo? {
             let updatedModel = unwrappedUserInfo[kGameCenterModelKey] as GKTurnBasedMatch
             if updatedModel.matchID == gameModel.turnBasedMatch.matchID {
+                self.gameModel.turnBasedMatch = updatedModel
+                if let matchData = updatedModel.matchData? {
+                    var model = NSKeyedUnarchiver.unarchiveObjectWithData(matchData) as GameModel
+                    self.gameModel.bigGameBoard = model.bigGameBoard;
+                    self.gameModel.moveSet = model.moveSet
+                }
+                
                 didGameEnd()
                 checkIfUsersTurn()
                 self.delegate?.viewModelDataUpdated(self)
@@ -68,11 +89,16 @@ class GameBoardViewModel: NSObject {
     
     }
     func checkIfUsersTurn() {
-        if (gameModel.turnBasedMatch.currentParticipant.playerID == GKLocalPlayer.localPlayer().playerID) {
-            //YOUR TURN
-        } else {
-            //SOMEONE ELSES TURN
+        if let unwrappedParticipant = gameModel.turnBasedMatch.currentParticipant? {
+            if let unwrappedPlayerID = unwrappedParticipant.playerID? {
+                if (unwrappedPlayerID == GKLocalPlayer.localPlayer().playerID) {
+                    //YOUR TURN
+                } else {
+                    //SOMEONE ELSES TURN
+                }
+            }
         }
+        
     }
     
     

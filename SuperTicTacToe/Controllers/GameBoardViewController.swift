@@ -15,6 +15,7 @@ class GameBoardViewController: UIViewController, UICollectionViewDelegate, GameB
 
     var selectedIndex: NSIndexPath
     @IBOutlet var gameBoardCollectionView: UICollectionView!
+    @IBOutlet var turnLabel: UILabel!
     
     var gameBoardViewModel: GameBoardViewModel! {
         didSet {
@@ -56,14 +57,8 @@ class GameBoardViewController: UIViewController, UICollectionViewDelegate, GameB
     
     func collectionView(collectionView: UICollectionView!, didSelectItemAtIndexPath indexPath: NSIndexPath!) {
         
-        if gameBoardViewModel.currentTurn {
-            var gameMove = GameMove(index:indexPath.item)
-            gameBoardViewModel.gameModel[gameMove.bigGridIndex][gameMove.smallGridIndex] = GKLocalPlayer.localPlayer().playerID;
-            GameCenterMatchManager.sharedInstance.submitTurn(gameBoardViewModel.gameModel);
-        }
-        
-        
-        gameBoardCollectionView.reloadData()
+        let gameMove = GameMove(index:indexPath.item)
+        GameCenterMatchManager.sharedInstance.submitTurn(gameBoardViewModel.gameModel, gameMove: gameMove)
     }
     
     // MARK: UICollectionViewDataSource
@@ -73,7 +68,7 @@ class GameBoardViewController: UIViewController, UICollectionViewDelegate, GameB
         
         var gameMove = GameMove(index:indexPath.item)
         
-        cell.configureWithPlayerID(gameBoardViewModel.gameModel[gameMove.bigGridIndex][gameMove.smallGridIndex])
+        cell.configureWithPlayerID(MatchMoveViewModel(gameModel: gameBoardViewModel.gameModel, gameMove: gameMove))
         return cell
     }
     
@@ -84,6 +79,7 @@ class GameBoardViewController: UIViewController, UICollectionViewDelegate, GameB
     // MARK: GameBoardViewModelDelegate
     
     func viewModelDataUpdated(viewModel: GameBoardViewModel) {
+        turnLabel.text = viewModel.turnText
         applyStyleFromViewModel()
     }
 }

@@ -11,21 +11,19 @@ import GameKit
 
 class MatchMoveCollectionViewCell: UICollectionViewCell {
 
+    @IBOutlet var pieceView: UIView!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-        layer.borderColor = UIColor.blackColor().CGColor
-        layer.borderWidth = 1
     }
 
-    func configureWithPlayerID(gameID: String) {
-        switch gameID {
-        case "":
-            backgroundColor = UIColor.whiteColor();
-        case GKLocalPlayer.localPlayer().playerID:
-            backgroundColor = UIColor.blueColor();
-        default:
-            backgroundColor = UIColor.redColor();
-        }
+    func configureWithPlayerID(matchMoveViewModel: MatchMoveViewModel) {
+        
+        pieceView.layer.cornerRadius = CGRectGetWidth(self.pieceView.bounds)/2
+        bringSubviewToFront(pieceView)
+        pieceView.backgroundColor = matchMoveViewModel.backgroundColor
+        
+        layer.borderColor = matchMoveViewModel.highlightColor.CGColor
+        layer.borderWidth = matchMoveViewModel.lineThickness
     }
 }

@@ -128,6 +128,12 @@
                                     <outlet property="delegate" destination="RGg-UQ-oMB" id="4e5-GU-Xs0"/>
                                 </connections>
                             </collectionView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vSj-pB-Zyu">
+                                <rect key="frame" x="16" y="83" width="288" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -147,6 +153,7 @@
                     </simulatedScreenMetrics>
                     <connections>
                         <outlet property="gameBoardCollectionView" destination="D7P-b2-1aq" id="YXv-Eb-Cm8"/>
+                        <outlet property="turnLabel" destination="vSj-pB-Zyu" id="DHh-H8-YTJ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aTq-cM-0ZP" userLabel="First Responder" sceneMemberID="firstResponder"/>

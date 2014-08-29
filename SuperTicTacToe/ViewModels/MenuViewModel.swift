@@ -56,7 +56,12 @@ class MenuViewModel: NSObject {
     }
     
     func observeMatchesChange(notification: NSNotification) {
-        self.delegate?.viewModelDataUpdated(self)
+        GameCenterMatchManager.sharedInstance.allMatchesWithCompletionHandler { (matches, error) in
+            if matches != nil {
+                self.matches = matches
+                self.delegate?.viewModelDataUpdated(self)
+            }
+        }
     }
     
     // MARK: Authentication

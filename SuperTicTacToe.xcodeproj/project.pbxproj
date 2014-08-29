@@ -32,7 +32,9 @@
 		AFCE309A19AAC8B100B5ED9F /* MatchCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AFCE309819AAC8B100B5ED9F /* MatchCollectionViewCell.xib */; };
 		AFCE309C19AB6A0500B5ED9F /* GameBigBoardCollectionViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFCE309B19AB6A0500B5ED9F /* GameBigBoardCollectionViewDelegate.swift */; };
 		AFCE309E19AB6A3300B5ED9F /* GameSmallBoardCollectionViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFCE309D19AB6A3300B5ED9F /* GameSmallBoardCollectionViewDelegate.swift */; };
+		AFD99E2F19B025BB0095B371 /* MatchMoveViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFD99E2E19B025BB0095B371 /* MatchMoveViewModel.swift */; };
 		AFFE031219AD340F00CF4EE8 /* GameBoardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFFE031119AD340F00CF4EE8 /* GameBoardViewModel.swift */; };
+		AFFE031619AE162900CF4EE8 /* GameValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFFE031519AE162900CF4EE8 /* GameValidator.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -75,7 +77,9 @@
 		AFCE309819AAC8B100B5ED9F /* MatchCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MatchCollectionViewCell.xib; sourceTree = "<group>"; };
 		AFCE309B19AB6A0500B5ED9F /* GameBigBoardCollectionViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameBigBoardCollectionViewDelegate.swift; sourceTree = "<group>"; };
 		AFCE309D19AB6A3300B5ED9F /* GameSmallBoardCollectionViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameSmallBoardCollectionViewDelegate.swift; sourceTree = "<group>"; };
+		AFD99E2E19B025BB0095B371 /* MatchMoveViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MatchMoveViewModel.swift; sourceTree = "<group>"; };
 		AFFE031119AD340F00CF4EE8 /* GameBoardViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameBoardViewModel.swift; sourceTree = "<group>"; };
+		AFFE031519AE162900CF4EE8 /* GameValidator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameValidator.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -180,6 +184,7 @@
 			children = (
 				AFCE309419AAB95E00B5ED9F /* MenuViewModel.swift */,
 				AFFE031119AD340F00CF4EE8 /* GameBoardViewModel.swift */,
+				AFD99E2E19B025BB0095B371 /* MatchMoveViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -204,6 +209,7 @@
 				AFCE309B19AB6A0500B5ED9F /* GameBigBoardCollectionViewDelegate.swift */,
 				AFCE309D19AB6A3300B5ED9F /* GameSmallBoardCollectionViewDelegate.swift */,
 				AF45DFD519ABCDFA00BAB927 /* Constants.swift */,
+				AFFE031519AE162900CF4EE8 /* GameValidator.swift */,
 			);
 			path = Utitlites;
 			sourceTree = "<group>";
@@ -337,6 +343,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AFD99E2F19B025BB0095B371 /* MatchMoveViewModel.swift in Sources */,
 				AFB9E56E19A91517009242A7 /* RootViewController.swift in Sources */,
 				AF45DFD919AC1CB400BAB927 /* MatchMoveCollectionViewCell.swift in Sources */,
 				AF45DFD619ABCDFA00BAB927 /* Constants.swift in Sources */,
@@ -351,6 +358,7 @@
 				AFB9E56019A90597009242A7 /* GameBoardCell.swift in Sources */,
 				AFFE031219AD340F00CF4EE8 /* GameBoardViewModel.swift in Sources */,
 				AFB9E55F19A90597009242A7 /* GameBoardViewController.swift in Sources */,
+				AFFE031619AE162900CF4EE8 /* GameValidator.swift in Sources */,
 				AFB9E56219A90597009242A7 /* GameBoardMinimalRepresentationView.swift in Sources */,
 				AFCE309C19AB6A0500B5ED9F /* GameBigBoardCollectionViewDelegate.swift in Sources */,
 				AFB9E56419A90597009242A7 /* GameBoardView.swift in Sources */,
@@ -471,6 +479,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = SuperTicTacToe/Info.plist;
@@ -478,6 +487,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -487,6 +497,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = SuperTicTacToe/Info.plist;

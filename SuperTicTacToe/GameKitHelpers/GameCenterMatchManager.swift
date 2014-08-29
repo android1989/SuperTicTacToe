@@ -84,12 +84,18 @@ class GameCenterMatchManager: NSObject, GKTurnBasedMatchmakerViewControllerDeleg
         presentationViewController?.presentViewController(requestViewController, animated:true, completion: nil)
     }
     
-    func submitTurn(gameModel: GameModel) {
-        var participants = gameModel.turnBasedMatch.participants
-        var data = NSKeyedArchiver.archivedDataWithRootObject(gameModel)
-        gameModel.turnBasedMatch.endTurnWithNextParticipants([self.nextParticipantForMatch(gameModel.turnBasedMatch)], turnTimeout: GKTurnTimeoutNone, matchData:data) { (error) -> Void in
-            NSNotificationCenter.defaultCenter().postNotificationName(kGameCenterModelChanged, object: nil, userInfo: [kGameCenterModelKey: gameModel.turnBasedMatch])
-            NSNotificationCenter.defaultCenter().postNotificationName(kGameCenterMatchesChanged, object: nil)
+    func submitTurn(gameModel: GameModel, gameMove: GameMove) {
+        
+        let gameValidator = GameValidator()
+        if gameValidator.validateMove(gameModel, gameMove: gameMove) {
+            var participants = gameModel.turnBasedMatch.participants
+            gameModel[gameMove] = GKLocalPlayer.localPlayer().playerID
+            gameModel.moveSet.append(gameMove)
+            var data = NSKeyedArchiver.archivedDataWithRootObject(gameModel)
+            gameModel.turnBasedMatch.endTurnWithNextParticipants([self.nextParticipantForMatch(gameModel.turnBasedMatch)], turnTimeout: GKTurnTimeoutNone, matchData:data) { (error) -> Void in
+                NSNotificationCenter.defaultCenter().postNotificationName(kGameCenterModelChanged, object: nil, userInfo: [kGameCenterModelKey: gameModel.turnBasedMatch])
+                NSNotificationCenter.defaultCenter().postNotificationName(kGameCenterMatchesChanged, object: nil)
+            }
         }
     }
     
@@ -104,15 +110,23 @@ class GameCenterMatchManager: NSObject, GKTurnBasedMatchmakerViewControllerDeleg
         presentationViewController?.dismissViewControllerAnimated(true, completion: nil)
     
         NSNotificationCenter.defaultCenter().postNotificationName(kGameCenterModelChanged, object: nil, userInfo: [kGameCenterModelKey: match])
+        NSNotificationCenter.defaultCenter().postNotificationName(kGameCenterMatchesChanged, object: nil)
     }
     
     func turnBasedMatchmakerViewController(viewController: GKTurnBasedMatchmakerViewController!, playerQuitForMatch match: GKTurnBasedMatch!) {
         presentationViewController?.dismissViewControllerAnimated(true, completion: nil)
         
         NSNotificationCenter.defaultCenter().postNotificationName(kGameCenterModelChanged, object: nil, userInfo: [kGameCenterModelKey: match])
+        NSNotificationCenter.defaultCenter().postNotificationName(kGameCenterMatchesChanged, object: nil)
         
-        var participants = GameCenterMatchManager.sharedInstance.nextParticipantForMatch(match)
-        match.participantQuitInTurnWithOutcome(GKTurnBasedMatchOutcome.Quit, nextParticipants:[participants], turnTimeout: GKTurnTimeoutNone, matchData: match.matchData, completionHandler: nil)
+        var participant = GameCenterMatchManager.sharedInstance.nextParticipantForMatch(match)
+        match.participantQuitInTurnWithOutcome(GKTurnBasedMatchOutcome.Quit, nextParticipants: [participant], turnTimeout: GKTurnTimeoutNone, matchData: match.matchData, completionHandler: nil)
+        
+        participant.matchOutcome = GKTurnBasedMatchOutcome.Won
+
+        match.endMatchInTurnWithMatchData(match.matchData) { (error) -> Void in
+            
+        }
     }
     
     func turnBasedMatchmakerViewControllerWasCancelled(viewController: GKTurnBasedMatchmakerViewController!) {
