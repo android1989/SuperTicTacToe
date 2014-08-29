@@ -88,13 +88,36 @@ class GameCenterMatchManager: NSObject, GKTurnBasedMatchmakerViewControllerDeleg
         
         let gameValidator = GameValidator()
         if gameValidator.validateMove(gameModel, gameMove: gameMove) {
-            var participants = gameModel.turnBasedMatch.participants
+            
             gameModel[gameMove] = GKLocalPlayer.localPlayer().playerID
             gameModel.moveSet.append(gameMove)
+            
+            var participants = gameModel.turnBasedMatch.participants
             var data = NSKeyedArchiver.archivedDataWithRootObject(gameModel)
-            gameModel.turnBasedMatch.endTurnWithNextParticipants([self.nextParticipantForMatch(gameModel.turnBasedMatch)], turnTimeout: GKTurnTimeoutNone, matchData:data) { (error) -> Void in
-                NSNotificationCenter.defaultCenter().postNotificationName(kGameCenterModelChanged, object: nil, userInfo: [kGameCenterModelKey: gameModel.turnBasedMatch])
-                NSNotificationCenter.defaultCenter().postNotificationName(kGameCenterMatchesChanged, object: nil)
+            
+            let winnerID = gameValidator.didPlayerWin(gameModel)
+            if winnerID != "" {
+                
+                let currentParticipant = gameModel.turnBasedMatch.currentParticipant
+                let opponent = self.nextParticipantForMatch(gameModel.turnBasedMatch)
+                
+                if currentParticipant.playerID == winnerID {
+                    currentParticipant.matchOutcome = GKTurnBasedMatchOutcome.Won
+                    opponent.matchOutcome = GKTurnBasedMatchOutcome.Lost
+                }else{
+                    currentParticipant.matchOutcome = GKTurnBasedMatchOutcome.Lost
+                    opponent.matchOutcome = GKTurnBasedMatchOutcome.Won
+                }
+                
+                gameModel.turnBasedMatch.endMatchInTurnWithMatchData(data, completionHandler: { (error) -> Void in
+                    NSNotificationCenter.defaultCenter().postNotificationName(kGameCenterModelChanged, object: nil, userInfo: [kGameCenterModelKey: gameModel.turnBasedMatch])
+                    NSNotificationCenter.defaultCenter().postNotificationName(kGameCenterMatchesChanged, object: nil)
+                })
+            }else{
+                gameModel.turnBasedMatch.endTurnWithNextParticipants([self.nextParticipantForMatch(gameModel.turnBasedMatch)], turnTimeout: GKTurnTimeoutNone, matchData:data) { (error) -> Void in
+                    NSNotificationCenter.defaultCenter().postNotificationName(kGameCenterModelChanged, object: nil, userInfo: [kGameCenterModelKey: gameModel.turnBasedMatch])
+                    NSNotificationCenter.defaultCenter().postNotificationName(kGameCenterMatchesChanged, object: nil)
+                }
             }
         }
     }
@@ -137,6 +160,7 @@ class GameCenterMatchManager: NSObject, GKTurnBasedMatchmakerViewControllerDeleg
     
     func player(player: GKPlayer!, matchEnded match: GKTurnBasedMatch!) {
     
+        
         NSNotificationCenter.defaultCenter().postNotificationName(kGameCenterModelChanged, object: nil, userInfo: [kGameCenterModelKey: match])
         NSNotificationCenter.defaultCenter().postNotificationName(kGameCenterMatchesChanged, object: nil)
     }
