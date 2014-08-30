@@ -12,6 +12,10 @@ class GameValidator: NSObject {
 
     func validateMove(gameModel: GameModel, gameMove: GameMove) -> Bool {
 
+        if gameModel.turnBasedMatch.status == GKTurnBasedMatchStatus.Ended {
+            return false
+        }
+        
         if let previousGameMove = gameModel.moveSet.last? {
             //Check that smallSquare equals big square
             if previousGameMove.smallGridIndex != gameMove.bigGridIndex {
@@ -39,32 +43,45 @@ class GameValidator: NSObject {
         }
         
         //Check if it is the players turn
-        if gameModel.turnBasedMatch.currentParticipant.playerID != GKLocalPlayer.localPlayer().playerID {
-            return false
+        if let unwrappedParticipant = gameModel.turnBasedMatch.currentParticipant? {
+            if  (unwrappedParticipant.matchOutcome == GKTurnBasedMatchOutcome.Lost ||
+                unwrappedParticipant.matchOutcome == GKTurnBasedMatchOutcome.Won ||
+                unwrappedParticipant.matchOutcome == GKTurnBasedMatchOutcome.Quit) {
+                return false
+            }
+            if unwrappedParticipant.playerID != GKLocalPlayer.localPlayer().playerID {
+                return false
+            }
         }
         
         return true
     }
     
-    func didPlayerWin(gameModel: GameModel) -> String {
-        
-        var bigGameBoard = Array<String>()
-        
-        var bigSquareIndex = 0
-        for bigSquareIndex; bigSquareIndex < 9; ++bigSquareIndex {
+    func didWinBoard(gameModel: GameModel) {
+        if let previousGameMove = gameModel.moveSet.last? {
+            if gameModel.bigGameBoardWinners[previousGameMove.bigGridIndex] != "" {
+                return
+            }
             
             var board = Array<String>()
             var smallSquareIndex = 0
             for smallSquareIndex; smallSquareIndex < 9; ++smallSquareIndex {
                 
-                var gameMove = GameMove(bigGridIndex: bigSquareIndex, smallGridIndex:smallSquareIndex)
+                var gameMove = GameMove(bigGridIndex: previousGameMove.bigGridIndex, smallGridIndex:smallSquareIndex)
                 board.append(gameModel[gameMove])
             }
-
-            bigGameBoard.append(self.checkBoardForWinner(board));
+            
+            let playerID = GKLocalPlayer.localPlayer().playerID
+            
+            if self.checkBoardForWinner(board) == playerID {
+                gameModel.bigGameBoardWinners[previousGameMove.bigGridIndex] = playerID
+            }
         }
+    }
+    
+    func didPlayerWin(gameModel: GameModel) -> String {
         
-        return self.checkBoardForWinner(bigGameBoard)
+        return self.checkBoardForWinner(gameModel.bigGameBoardWinners)
     }
     
     func checkBoardForWinner(board: Array<String>) -> String {

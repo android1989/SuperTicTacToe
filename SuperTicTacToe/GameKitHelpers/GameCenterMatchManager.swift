@@ -84,13 +84,14 @@ class GameCenterMatchManager: NSObject, GKTurnBasedMatchmakerViewControllerDeleg
         presentationViewController?.presentViewController(requestViewController, animated:true, completion: nil)
     }
     
-    func submitTurn(gameModel: GameModel, gameMove: GameMove) {
+    func submitTurn(gameModel: GameModel, gameMove: GameMove) -> Bool {
         
         let gameValidator = GameValidator()
         if gameValidator.validateMove(gameModel, gameMove: gameMove) {
             
             gameModel[gameMove] = GKLocalPlayer.localPlayer().playerID
             gameModel.moveSet.append(gameMove)
+            gameValidator.didWinBoard(gameModel)
             
             var participants = gameModel.turnBasedMatch.participants
             var data = NSKeyedArchiver.archivedDataWithRootObject(gameModel)
@@ -119,6 +120,9 @@ class GameCenterMatchManager: NSObject, GKTurnBasedMatchmakerViewControllerDeleg
                     NSNotificationCenter.defaultCenter().postNotificationName(kGameCenterMatchesChanged, object: nil)
                 }
             }
+            return true
+        }else{
+            return false
         }
     }
     

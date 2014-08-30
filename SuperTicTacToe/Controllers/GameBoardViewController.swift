@@ -58,7 +58,13 @@ class GameBoardViewController: UIViewController, UICollectionViewDelegate, GameB
     func collectionView(collectionView: UICollectionView!, didSelectItemAtIndexPath indexPath: NSIndexPath!) {
         
         let gameMove = GameMove(index:indexPath.item)
-        GameCenterMatchManager.sharedInstance.submitTurn(gameBoardViewModel.gameModel, gameMove: gameMove)
+        
+        var valid = GameCenterMatchManager.sharedInstance.submitTurn(gameBoardViewModel.gameModel, gameMove: gameMove)
+        
+        if valid {
+            gameBoardViewModel.gameModel[gameMove] = GKLocalPlayer.localPlayer().playerID;
+            gameBoardCollectionView.reloadData()
+        }
     }
     
     // MARK: UICollectionViewDataSource

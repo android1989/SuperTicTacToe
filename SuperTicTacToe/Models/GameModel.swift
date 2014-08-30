@@ -54,6 +54,7 @@ class GameModel: NSObject , NSCoding {
     var cellCount: Int;
     var turnBasedMatch = GKTurnBasedMatch()
     var bigGameBoard: [([String])]!
+    var bigGameBoardWinners: [String]!
     var moveSet: [GameMove]!
     
     subscript(gameMove: GameMove) -> String {
@@ -73,6 +74,7 @@ class GameModel: NSObject , NSCoding {
 
     init(turnBasedMatch: GKTurnBasedMatch) {
         let repeatValue = [String](count: 9, repeatedValue:"")
+        bigGameBoardWinners = [String](count: 9, repeatedValue:"")
         bigGameBoard = [Array<String>](count: 9, repeatedValue:repeatValue)
         moveSet = [GameMove]()
         self.turnBasedMatch = turnBasedMatch
@@ -82,6 +84,7 @@ class GameModel: NSObject , NSCoding {
     
     override init() {
         let repeatValue = [String](count: 9, repeatedValue:"")
+        bigGameBoardWinners = [String](count: 9, repeatedValue:"")
         bigGameBoard = [Array<String>](count: 9, repeatedValue:repeatValue)
         moveSet = [GameMove]()
         turnBasedMatch = GKTurnBasedMatch()
@@ -91,12 +94,14 @@ class GameModel: NSObject , NSCoding {
     
     required init(coder aDecoder: NSCoder) {
         cellCount = 9*9;
+        bigGameBoardWinners = aDecoder.decodeObjectForKey("gameBoardWinners") as [String]
         bigGameBoard = aDecoder.decodeObjectForKey("gameBoard") as [[String]]
         moveSet = aDecoder.decodeObjectForKey("MoveSet") as [GameMove]
     }
     
     func encodeWithCoder(aCoder: NSCoder) {
         
+        aCoder.encodeObject(bigGameBoardWinners, forKey: "gameBoardWinners")
         aCoder.encodeObject(bigGameBoard, forKey: "gameBoard")
         aCoder.encodeObject(moveSet, forKey: "MoveSet")
     }

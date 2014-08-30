@@ -21,6 +21,12 @@ class GameBoardViewModel: NSObject {
     var turnText: String {
         get {
             if let unwrappedParticipant = self.gameModel.turnBasedMatch.currentParticipant? {
+                if unwrappedParticipant.matchOutcome == GKTurnBasedMatchOutcome.Won {
+                    return "You WON"
+                }else if unwrappedParticipant.matchOutcome == GKTurnBasedMatchOutcome.Lost {
+                    return "You LOST :("
+                }
+                
                 if unwrappedParticipant.playerID == GKLocalPlayer.localPlayer().playerID {
                     return "Your Turn"
                 }else{
@@ -74,7 +80,8 @@ class GameBoardViewModel: NSObject {
                 self.gameModel.turnBasedMatch = updatedModel
                 if let matchData = updatedModel.matchData? {
                     var model = NSKeyedUnarchiver.unarchiveObjectWithData(matchData) as GameModel
-                    self.gameModel.bigGameBoard = model.bigGameBoard;
+                    self.gameModel.bigGameBoardWinners = model.bigGameBoardWinners
+                    self.gameModel.bigGameBoard = model.bigGameBoard
                     self.gameModel.moveSet = model.moveSet
                 }
                 
