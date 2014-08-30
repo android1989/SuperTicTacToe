@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		AF04AAD719A6AC4F000D97FF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF04AAD619A6AC4F000D97FF /* AppDelegate.swift */; };
-		AF04AADC19A6AC4F000D97FF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AF04AADA19A6AC4F000D97FF /* Main.storyboard */; };
 		AF04AADE19A6AC4F000D97FF /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AF04AADD19A6AC4F000D97FF /* Images.xcassets */; };
 		AF04AAEA19A6AC4F000D97FF /* SuperTicTacToeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF04AAE919A6AC4F000D97FF /* SuperTicTacToeTests.swift */; };
 		AF45DFD619ABCDFA00BAB927 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF45DFD519ABCDFA00BAB927 /* Constants.swift */; };
@@ -32,6 +31,11 @@
 		AFCE309A19AAC8B100B5ED9F /* MatchCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AFCE309819AAC8B100B5ED9F /* MatchCollectionViewCell.xib */; };
 		AFCE309C19AB6A0500B5ED9F /* GameBigBoardCollectionViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFCE309B19AB6A0500B5ED9F /* GameBigBoardCollectionViewDelegate.swift */; };
 		AFCE309E19AB6A3300B5ED9F /* GameSmallBoardCollectionViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFCE309D19AB6A3300B5ED9F /* GameSmallBoardCollectionViewDelegate.swift */; };
+		AFCEAAC319B24A8B0013B616 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AF04AADA19A6AC4F000D97FF /* Main.storyboard */; };
+		AFD577F419B22D0E000961A1 /* libTestFlight.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AFD577EE19B22D0E000961A1 /* libTestFlight.a */; };
+		AFD577F519B22D0E000961A1 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = AFD577EF19B22D0E000961A1 /* README.md */; };
+		AFD577F619B22D0E000961A1 /* release_notes.md in Sources */ = {isa = PBXBuildFile; fileRef = AFD577F019B22D0E000961A1 /* release_notes.md */; };
+		AFD577F819B22DAE000961A1 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = AFD577F719B22DAE000961A1 /* libz.dylib */; };
 		AFD99E2F19B025BB0095B371 /* MatchMoveViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFD99E2E19B025BB0095B371 /* MatchMoveViewModel.swift */; };
 		AFFE031219AD340F00CF4EE8 /* GameBoardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFFE031119AD340F00CF4EE8 /* GameBoardViewModel.swift */; };
 		AFFE031619AE162900CF4EE8 /* GameValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFFE031519AE162900CF4EE8 /* GameValidator.swift */; };
@@ -77,6 +81,14 @@
 		AFCE309819AAC8B100B5ED9F /* MatchCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MatchCollectionViewCell.xib; sourceTree = "<group>"; };
 		AFCE309B19AB6A0500B5ED9F /* GameBigBoardCollectionViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameBigBoardCollectionViewDelegate.swift; sourceTree = "<group>"; };
 		AFCE309D19AB6A3300B5ED9F /* GameSmallBoardCollectionViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameSmallBoardCollectionViewDelegate.swift; sourceTree = "<group>"; };
+		AFD577EE19B22D0E000961A1 /* libTestFlight.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libTestFlight.a; sourceTree = "<group>"; };
+		AFD577EF19B22D0E000961A1 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		AFD577F019B22D0E000961A1 /* release_notes.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = release_notes.md; sourceTree = "<group>"; };
+		AFD577F119B22D0E000961A1 /* TestFlight+AsyncLogging.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TestFlight+AsyncLogging.h"; sourceTree = "<group>"; };
+		AFD577F219B22D0E000961A1 /* TestFlight+ManualSessions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TestFlight+ManualSessions.h"; sourceTree = "<group>"; };
+		AFD577F319B22D0E000961A1 /* TestFlight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestFlight.h; sourceTree = "<group>"; };
+		AFD577F719B22DAE000961A1 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
+		AFD577F919B22E0F000961A1 /* SuperTicTacToe-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SuperTicTacToe-Bridging-Header.h"; sourceTree = "<group>"; };
 		AFD99E2E19B025BB0095B371 /* MatchMoveViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MatchMoveViewModel.swift; sourceTree = "<group>"; };
 		AFFE031119AD340F00CF4EE8 /* GameBoardViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameBoardViewModel.swift; sourceTree = "<group>"; };
 		AFFE031519AE162900CF4EE8 /* GameValidator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameValidator.swift; sourceTree = "<group>"; };
@@ -87,7 +99,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AFD577F819B22DAE000961A1 /* libz.dylib in Frameworks */,
 				AFB9E56919A905E0009242A7 /* GameKit.framework in Frameworks */,
+				AFD577F419B22D0E000961A1 /* libTestFlight.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -104,6 +118,7 @@
 		AF04AAC819A6AC4F000D97FF = {
 			isa = PBXGroup;
 			children = (
+				AFD577F719B22DAE000961A1 /* libz.dylib */,
 				AFB9E56819A905E0009242A7 /* GameKit.framework */,
 				AF04AAD319A6AC4F000D97FF /* SuperTicTacToe */,
 				AF04AAE619A6AC4F000D97FF /* SuperTicTacToeTests */,
@@ -140,6 +155,7 @@
 		AF04AAD419A6AC4F000D97FF /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				AFD577ED19B22D0E000961A1 /* TestFlightSDK3 */,
 				AF04AAD519A6AC4F000D97FF /* Info.plist */,
 			);
 			name = "Supporting Files";
@@ -218,6 +234,7 @@
 			isa = PBXGroup;
 			children = (
 				AFB9E56B19A906A7009242A7 /* GameCenterMatchManager.swift */,
+				AFD577F919B22E0F000961A1 /* SuperTicTacToe-Bridging-Header.h */,
 			);
 			path = GameKitHelpers;
 			sourceTree = "<group>";
@@ -233,6 +250,19 @@
 				AF45DFDC19AC1E5100BAB927 /* MatchBoardCollectionViewCell.xib */,
 			);
 			path = Cells;
+			sourceTree = "<group>";
+		};
+		AFD577ED19B22D0E000961A1 /* TestFlightSDK3 */ = {
+			isa = PBXGroup;
+			children = (
+				AFD577EE19B22D0E000961A1 /* libTestFlight.a */,
+				AFD577EF19B22D0E000961A1 /* README.md */,
+				AFD577F019B22D0E000961A1 /* release_notes.md */,
+				AFD577F119B22D0E000961A1 /* TestFlight+AsyncLogging.h */,
+				AFD577F219B22D0E000961A1 /* TestFlight+ManualSessions.h */,
+				AFD577F319B22D0E000961A1 /* TestFlight.h */,
+			);
+			path = TestFlightSDK3;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -321,7 +351,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AF04AADC19A6AC4F000D97FF /* Main.storyboard in Resources */,
+				AFCEAAC319B24A8B0013B616 /* Main.storyboard in Resources */,
 				AF04AADE19A6AC4F000D97FF /* Images.xcassets in Resources */,
 				AFCE309A19AAC8B100B5ED9F /* MatchCollectionViewCell.xib in Resources */,
 				AF45DFDE19AC1E5100BAB927 /* MatchBoardCollectionViewCell.xib in Resources */,
@@ -358,11 +388,13 @@
 				AFB9E56019A90597009242A7 /* GameBoardCell.swift in Sources */,
 				AFFE031219AD340F00CF4EE8 /* GameBoardViewModel.swift in Sources */,
 				AFB9E55F19A90597009242A7 /* GameBoardViewController.swift in Sources */,
+				AFD577F619B22D0E000961A1 /* release_notes.md in Sources */,
 				AFFE031619AE162900CF4EE8 /* GameValidator.swift in Sources */,
 				AFB9E56219A90597009242A7 /* GameBoardMinimalRepresentationView.swift in Sources */,
 				AFCE309C19AB6A0500B5ED9F /* GameBigBoardCollectionViewDelegate.swift in Sources */,
 				AFB9E56419A90597009242A7 /* GameBoardView.swift in Sources */,
 				AF45DFDD19AC1E5100BAB927 /* MatchBoardCollectionViewCell.swift in Sources */,
+				AFD577F519B22D0E000961A1 /* README.md in Sources */,
 				AFB9E57019A938B4009242A7 /* GameModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -485,8 +517,13 @@
 				INFOPLIST_FILE = SuperTicTacToe/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/SuperTicTacToe/TestFlightSDK3",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "SuperTicTacToe/GameKitHelpers/SuperTicTacToe-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -503,8 +540,13 @@
 				INFOPLIST_FILE = SuperTicTacToe/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/SuperTicTacToe/TestFlightSDK3",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "SuperTicTacToe/GameKitHelpers/SuperTicTacToe-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;

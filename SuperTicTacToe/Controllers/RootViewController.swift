@@ -15,7 +15,7 @@ class RootViewController: UIViewController, MenuViewModelDelegate, UICollectionV
     
     //UI
     @IBOutlet var addGameButton: UIButton?
-    @IBOutlet var matchesCollectionView: UICollectionView?
+    @IBOutlet var matchesCollectionView: UICollectionView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -64,11 +64,13 @@ class RootViewController: UIViewController, MenuViewModelDelegate, UICollectionV
     
     func registerCollectionViewCells(collectionView: UICollectionView) {
         
-        collectionView.registerNib(UINib(nibName: "MatchCollectionViewCell", bundle: nil),forCellWithReuseIdentifier: "Cell")
+        let nib = UINib(nibName: "MatchCollectionViewCell", bundle: nil)
+        collectionView.registerNib(nib,forCellWithReuseIdentifier: "MatchCollectionViewCell")
     }
     
     func collectionView(collectionView: UICollectionView!, cellForItemAtIndexPath indexPath: NSIndexPath!) -> UICollectionViewCell! {
-        var matchCell = collectionView.dequeueReusableCellWithReuseIdentifier("Cell", forIndexPath: indexPath) as MatchCollectionViewCell
+        
+        var matchCell = matchesCollectionView?.dequeueReusableCellWithReuseIdentifier("MatchCollectionViewCell", forIndexPath: indexPath) as MatchCollectionViewCell
         
         matchCell.delegate = self;
         matchCell.configureWithModel(viewModel.matches[indexPath.item])

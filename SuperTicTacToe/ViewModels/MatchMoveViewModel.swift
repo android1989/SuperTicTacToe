@@ -12,6 +12,7 @@ import GameKit
 class MatchMoveViewModel: NSObject {
    
     var backgroundColor: UIColor!
+    var pieceColor: UIColor!
     var highlightColor: UIColor!
     var lineThickness: CGFloat!
     var gameModel: GameModel!
@@ -32,11 +33,20 @@ class MatchMoveViewModel: NSObject {
         
         switch gameModel[gameMove] {
         case "":
+            pieceColor = UIColor.clearColor();
+        case GKLocalPlayer.localPlayer().playerID:
+            pieceColor = UIColor(red: 123/255.0, green: 169/255.0, blue:237/255.0, alpha:1)
+        default:
+            pieceColor = UIColor(red: 237/255.0, green: 123/255.0, blue:169/255.0, alpha:1)
+        }
+
+        switch gameModel.bigGameBoardWinners[gameMove.bigGridIndex] {
+        case "":
             backgroundColor = UIColor.whiteColor();
         case GKLocalPlayer.localPlayer().playerID:
-            backgroundColor = UIColor.blueColor();
+            backgroundColor = UIColor(red: 123/255.0, green: 169/255.0, blue:237/255.0, alpha:0.5)
         default:
-            backgroundColor = UIColor.redColor();
+            backgroundColor = UIColor(red: 237/255.0, green: 123/255.0, blue:169/255.0, alpha:1)
         }
     }
 }

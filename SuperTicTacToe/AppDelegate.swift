@@ -15,6 +15,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication!, didFinishLaunchingWithOptions launchOptions: NSDictionary!) -> Bool {
         // Override point for customization after application launch.
+        TestFlight.takeOff("875665f4-1caf-4c61-bdb3-de117b0c8be8");
         
         GameCenterMatchManager.sharedInstance.presentationViewController = window?.rootViewController
         GameCenterMatchManager.sharedInstance.authenticateLocalUser()

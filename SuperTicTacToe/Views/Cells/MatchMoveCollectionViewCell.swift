@@ -19,9 +19,10 @@ class MatchMoveCollectionViewCell: UICollectionViewCell {
 
     func configureWithPlayerID(matchMoveViewModel: MatchMoveViewModel) {
         
+        backgroundColor = matchMoveViewModel.backgroundColor
         pieceView.layer.cornerRadius = CGRectGetWidth(self.pieceView.bounds)/2
         bringSubviewToFront(pieceView)
-        pieceView.backgroundColor = matchMoveViewModel.backgroundColor
+        pieceView.backgroundColor = matchMoveViewModel.pieceColor
         
         layer.borderColor = matchMoveViewModel.highlightColor.CGColor
         layer.borderWidth = matchMoveViewModel.lineThickness

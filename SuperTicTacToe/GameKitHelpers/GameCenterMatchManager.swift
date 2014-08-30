@@ -195,22 +195,26 @@ class GameCenterMatchManager: NSObject, GKTurnBasedMatchmakerViewControllerDeleg
     // MARK: Matches
     func allMatchesWithCompletionHandler(completionHandler: (([GameModel]?, NSError!) -> Void)!) {
         GKTurnBasedMatch.loadMatchesWithCompletionHandler { (matches, error) -> Void in
+            
             if completionHandler != nil {
-    
-                var gameModels = matches.filter({ (match) -> Bool in
-                    for matchID in self.bannedList {
-                        if matchID == match.matchID {
-                            return false
+                if matches != nil {
+                    var gameModels = matches.filter({ (match) -> Bool in
+                        for matchID in self.bannedList {
+                            if matchID == match.matchID {
+                                return false
+                            }
                         }
-                    }
+                        
+                        return true
+                    })
                     
-                    return true
-                })
-                
-                gameModels = gameModels.map({ (match) -> GameModel in
-                    return GameModel(turnBasedMatch: match as GKTurnBasedMatch)
-                })
-                completionHandler(gameModels as? [GameModel], error)
+                    gameModels = gameModels.map({ (match) -> GameModel in
+                        return GameModel(turnBasedMatch: match as GKTurnBasedMatch)
+                    })
+                    completionHandler(gameModels as? [GameModel], error)
+                }else{
+                    completionHandler([], error)
+                }
             }
             
         }
@@ -218,6 +222,12 @@ class GameCenterMatchManager: NSObject, GKTurnBasedMatchmakerViewControllerDeleg
     
     func removeGameForPlayer(gameModel: GameModel) {
         var match = gameModel.turnBasedMatch;
+        
+        if match.status == GKTurnBasedMatchStatus.Ended {
+            self.bannedList.append(match.matchID)
+            return;
+        }
+        
         if let unwrappedParticipant = match.currentParticipant? {
             if unwrappedParticipant.playerID == GKLocalPlayer.localPlayer().playerID {
                 var participants = GameCenterMatchManager.sharedInstance.nextParticipantForMatch(match)

@@ -63,7 +63,6 @@ class MatchCollectionViewCell: UICollectionViewCell {
             default:
                 statusLabel?.text = "Unknown"
             }
-            deleteButton?.hidden = true
         case GKTurnBasedMatchStatus.Open:
             if model.turnBasedMatch.currentParticipant == localPlayer {
                 statusLabel?.text = "Your Turn"
