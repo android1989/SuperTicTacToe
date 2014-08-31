@@ -3,6 +3,7 @@
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7026.1"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints with attributes relative to the layout margin" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--Root View Controller-->
@@ -129,8 +130,8 @@
                                     <outlet property="delegate" destination="RGg-UQ-oMB" id="4e5-GU-Xs0"/>
                                 </connections>
                             </collectionView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vSj-pB-Zyu">
-                                <rect key="frame" x="16" y="83" width="288" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vSj-pB-Zyu">
+                                <rect key="frame" x="16" y="81" width="288" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
@@ -138,11 +139,15 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="vSj-pB-Zyu" firstAttribute="top" secondItem="MjB-P3-Ze2" secondAttribute="bottom" constant="61" id="0jG-rx-sgd"/>
                             <constraint firstItem="7oH-cn-Nuq" firstAttribute="top" secondItem="qfQ-fj-h0T" secondAttribute="bottom" id="5YU-Kx-ICj"/>
                             <constraint firstItem="D7P-b2-1aq" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Ier-1k-vxO" secondAttribute="leading" id="KmM-gq-lcL"/>
                             <constraint firstAttribute="centerX" secondItem="D7P-b2-1aq" secondAttribute="centerX" id="MAK-lb-bla"/>
+                            <constraint firstItem="vSj-pB-Zyu" firstAttribute="leading" secondItem="Ier-1k-vxO" secondAttribute="leadingMargin" id="PZL-Bv-PgM"/>
                             <constraint firstAttribute="centerY" secondItem="D7P-b2-1aq" secondAttribute="centerY" id="XdY-pW-we6"/>
                             <constraint firstItem="qfQ-fj-h0T" firstAttribute="leading" secondItem="Ier-1k-vxO" secondAttribute="leading" id="b8a-i2-EK1"/>
+                            <constraint firstItem="D7P-b2-1aq" firstAttribute="top" secondItem="vSj-pB-Zyu" secondAttribute="bottom" constant="32" id="gNg-Rv-Jgg"/>
+                            <constraint firstItem="vSj-pB-Zyu" firstAttribute="trailing" secondItem="Ier-1k-vxO" secondAttribute="trailingMargin" id="p2E-Ez-y2O"/>
                             <constraint firstItem="D7P-b2-1aq" firstAttribute="top" secondItem="MjB-P3-Ze2" secondAttribute="bottom" constant="114" id="t5c-jN-yJy"/>
                             <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="D7P-b2-1aq" secondAttribute="trailing" id="v8l-vP-7Le"/>
                             <constraint firstAttribute="trailing" secondItem="qfQ-fj-h0T" secondAttribute="trailing" id="vKd-Az-2vy"/>

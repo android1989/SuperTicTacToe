@@ -46,7 +46,7 @@ class MatchMoveViewModel: NSObject {
         case GKLocalPlayer.localPlayer().playerID:
             backgroundColor = UIColor(red: 123/255.0, green: 169/255.0, blue:237/255.0, alpha:0.5)
         default:
-            backgroundColor = UIColor(red: 237/255.0, green: 123/255.0, blue:169/255.0, alpha:1)
+            backgroundColor = UIColor(red: 237/255.0, green: 123/255.0, blue:169/255.0, alpha:0.5)
         }
     }
 }

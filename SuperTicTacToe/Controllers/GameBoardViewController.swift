@@ -55,6 +55,10 @@ class GameBoardViewController: UIViewController, UICollectionViewDelegate, GameB
     
     // MARK: UICollectionViewDelegate
     
+    func collectionView(collectionView: UICollectionView!, layout collectionViewLayout: UICollectionViewLayout!, sizeForItemAtIndexPath indexPath: NSIndexPath!) -> CGSize {
+        return CGSize(width: CGRectGetWidth(self.gameBoardCollectionView.bounds)/9, height: CGRectGetHeight(self.gameBoardCollectionView.bounds)/9)
+    }
+    
     func collectionView(collectionView: UICollectionView!, didSelectItemAtIndexPath indexPath: NSIndexPath!) {
         
         let gameMove = GameMove(index:indexPath.item)
